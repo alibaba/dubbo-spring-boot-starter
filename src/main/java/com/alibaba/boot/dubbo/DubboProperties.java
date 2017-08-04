@@ -11,10 +11,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(prefix = "spring.dubbo")
 public class DubboProperties {
+
   /**
    * dubbo application name
    */
   private String appname;
+  /**
+   * dubbo application owner
+   */
+  private String appowner;
   /**
    * dubbo registry address
    */
@@ -48,6 +53,14 @@ public class DubboProperties {
 
   public void setAppname(String appname) {
     this.appname = appname;
+  }
+
+  public String getAppowner() {
+    return appowner;
+  }
+
+  public void setAppowner(String appowner) {
+    this.appowner = appowner;
   }
 
   public String getRegistry() {
@@ -100,8 +113,16 @@ public class DubboProperties {
 
   @Override
   public String toString() {
-    return "DubboProperties [appname=" + this.appname + ", registry=" + this.registry
-        + ", protocol=" + this.protocol + ", port=" + this.port + ", threads=" + this.threads
-        + ", version=" + this.version + ", group=" + this.group + "]";
+    final StringBuilder sb = new StringBuilder("DubboProperties{");
+    sb.append("appname='").append(appname).append('\'');
+    sb.append(", appowner='").append(appowner).append('\'');
+    sb.append(", registry='").append(registry).append('\'');
+    sb.append(", protocol='").append(protocol).append('\'');
+    sb.append(", port=").append(port);
+    sb.append(", threads=").append(threads);
+    sb.append(", version='").append(version).append('\'');
+    sb.append(", group='").append(group).append('\'');
+    sb.append('}');
+    return sb.toString();
   }
 }

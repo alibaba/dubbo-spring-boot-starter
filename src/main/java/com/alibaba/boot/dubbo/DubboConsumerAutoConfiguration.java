@@ -1,9 +1,18 @@
 package com.alibaba.boot.dubbo;
 
+import static org.springframework.util.SystemPropertyUtils.PLACEHOLDER_PREFIX;
+import static org.springframework.util.SystemPropertyUtils.PLACEHOLDER_SUFFIX;
+
+import com.alibaba.boot.dubbo.annotation.DubboConsumer;
+import com.alibaba.boot.dubbo.annotation.EnableDubboConfiguration;
+import com.alibaba.boot.dubbo.domain.ClassIdBean;
+import com.alibaba.dubbo.config.ApplicationConfig;
+import com.alibaba.dubbo.config.RegistryConfig;
+import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.dubbo.config.spring.ReferenceBean;
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +24,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.alibaba.boot.dubbo.annotation.DubboConsumer;
-import com.alibaba.boot.dubbo.annotation.EnableDubboConfiguration;
-import com.alibaba.boot.dubbo.domain.ClassIdBean;
-import com.alibaba.dubbo.config.ApplicationConfig;
-import com.alibaba.dubbo.config.RegistryConfig;
-import com.alibaba.dubbo.config.annotation.Service;
-import com.alibaba.dubbo.config.spring.ReferenceBean;
+import org.springframework.core.env.Environment;
 
 /**
  * DubboConsumerAutoConfiguration, use {@link Service#version} and {@link Service#timeout}
@@ -38,6 +40,7 @@ import com.alibaba.dubbo.config.spring.ReferenceBean;
 @AutoConfigureAfter(DubboAutoConfiguration.class)
 @EnableConfigurationProperties(DubboProperties.class)
 public class DubboConsumerAutoConfiguration {
+
   public static final Map<ClassIdBean, Object> DUBBO_REFERENCES_MAP =
       new ConcurrentHashMap<ClassIdBean, Object>();
 
@@ -51,6 +54,8 @@ public class DubboConsumerAutoConfiguration {
   private ApplicationConfig applicationConfig;
   @Autowired
   private RegistryConfig registryConfig;
+  @Autowired
+  private Environment env;
 
   @Bean
   public BeanPostProcessor beanPostProcessor() {
@@ -120,11 +125,6 @@ public class DubboConsumerAutoConfiguration {
 
   /**
    * 设置相关配置信息, @see DubboConsumer
-   *
-   * @param interfaceClazz
-   * @param dubboConsumer
-   * @return
-   * @throws BeansException
    */
   private <T> ReferenceBean<T> getConsumerBean(Class<T> interfaceClazz, DubboConsumer dubboConsumer)
       throws BeansException {
@@ -150,6 +150,11 @@ public class DubboConsumerAutoConfiguration {
       version = this.properties.getVersion();
     }
     if (version != null && !"".equals(version)) {
+      if (version.startsWith(PLACEHOLDER_PREFIX) && version.endsWith(PLACEHOLDER_SUFFIX)) {
+        version = version.substring(version.indexOf(PLACEHOLDER_PREFIX),
+            version.lastIndexOf(PLACEHOLDER_SUFFIX));
+        version = env.getProperty(version, "");
+      }
       consumerBean.setVersion(version);
     }
     int timeout = dubboConsumer.timeout();

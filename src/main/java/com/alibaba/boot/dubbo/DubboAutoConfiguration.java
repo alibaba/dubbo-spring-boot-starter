@@ -32,6 +32,7 @@ public class DubboAutoConfiguration {
   public ApplicationConfig dubboApplicationConfig() {
     ApplicationConfig appConfig = new ApplicationConfig();
     appConfig.setName(this.properties.getAppname());
+    appConfig.setOwner(this.properties.getAppowner());
     return appConfig;
   }
 

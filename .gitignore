@@ -2,3 +2,6 @@
 /.settings
 /.project
 /.classpath
+*.iml
+.idea/
+

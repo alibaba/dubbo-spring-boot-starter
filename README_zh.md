@@ -10,7 +10,7 @@ Spring Boot with dubbo support. dubbo是一个RPC框架。
 （在修改源码前，请导入googlestyle-java.xml以保证一致的代码格式）
 
 ### 如何发布dubbo服务
-
+spring-boot-starter-dubb目前没有发布release计划，需要clone下来传到私服使用
 * 添加依赖:
 
 ```xml

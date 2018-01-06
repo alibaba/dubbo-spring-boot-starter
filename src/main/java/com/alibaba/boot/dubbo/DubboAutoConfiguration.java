@@ -6,6 +6,7 @@ import com.alibaba.boot.dubbo.endpoint.DubboEndpoint;
 import com.alibaba.boot.dubbo.endpoint.DubboOperationEndpoint;
 import com.alibaba.boot.dubbo.health.DubboHealthIndicator;
 import com.alibaba.boot.dubbo.metrics.DubboMetrics;
+import com.alibaba.dubbo.config.ProtocolConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -15,9 +16,12 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableConfigurationProperties(DubboProperties.class)
-public class DubboAutoConfiguration {
+public class DubboAutoConfiguration implements InitializingBean {
 
     private static final Logger LOG = LoggerFactory.getLogger(DubboAutoConfiguration.class);
+
+    @Resource
+    private DubboProperties properties;
 
     static {
         System.setProperty("dubbo.application.logger", "slf4j");
@@ -52,4 +56,12 @@ public class DubboAutoConfiguration {
         return dubboOperationEndpoint;
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        fillDefaultForDubboProtocol(properties.getDubboProtocol());
+    }
+
+    private void fillDefaultForDubboProtocol(ProtocolConfig dubboProtocol) {
+
+    }
 }

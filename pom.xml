@@ -32,9 +32,9 @@
 
         <!-- zookeeper客户端开始 -->
         <dependency>
-            <groupId>org.apache.curator</groupId>
-            <artifactId>curator-client</artifactId>
-            <version>3.3.0</version>
+            <groupId>com.101tec</groupId>
+            <artifactId>zkclient</artifactId>
+            <version>0.2</version>
         </dependency>
         <!-- zookeeper客户端结束 -->
 

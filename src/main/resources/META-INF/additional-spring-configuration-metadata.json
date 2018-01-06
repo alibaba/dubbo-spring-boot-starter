@@ -71,7 +71,6 @@
     {
       "name": "spring.dubbo.zkRegistry.client",
       "type": "java.lang.String",
-      "defaultValue": "curator",
       "sourceType": "com.alibaba.dubbo.config.RegistryConfig",
       "description": "zookeeper客户端实现，改为默认采用apache的实现."
     },

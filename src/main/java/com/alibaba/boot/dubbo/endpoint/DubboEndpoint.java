@@ -86,11 +86,11 @@ public class DubboEndpoint extends AbstractEndpoint<Map<String, Object>> {
   public Map<String, Object> getRuntime() {
     Map<String, Object> runtimeMap = new HashMap<String, Object>();
 
-    runtimeMap.put("appname", this.dubboProperties.getAppname());
-    runtimeMap.put("registry", this.dubboProperties.getRegistry());
-    runtimeMap.put("protocol", this.dubboProperties.getProtocol());
-    runtimeMap.put("port", this.dubboProperties.getPort());
-    runtimeMap.put("threads", this.dubboProperties.getThreads());
+    runtimeMap.put("applicationName", this.dubboProperties.getApplication().getName());
+    runtimeMap.put("registryAddress", this.dubboProperties.getRedisRegistry().getAddress());
+    runtimeMap.put("protocolName", this.dubboProperties.getDubboProtocol().getName());
+    runtimeMap.put("protocolPort", this.dubboProperties.getDubboProtocol().getPort());
+    runtimeMap.put("protocolThreads", this.dubboProperties.getDubboProtocol().getThreads());
 
     // published services
     Map<ClassIdBean, Map<String, Long>> publishedInterfaceList =

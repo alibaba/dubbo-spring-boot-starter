@@ -1,6 +1,8 @@
 package com.alibaba.boot.dubbo;
 
 import java.lang.reflect.Field;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.Resource;
@@ -8,6 +10,7 @@ import javax.annotation.Resource;
 import com.alibaba.boot.dubbo.annotation.DubboConsumer;
 import com.alibaba.boot.dubbo.annotation.EnableDubboConfiguration;
 import com.alibaba.boot.dubbo.domain.ClassIdBean;
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.dubbo.config.spring.ReferenceBean;
@@ -131,11 +134,20 @@ public class DubboConsumerAutoConfiguration {
         consumerBean.setInterface(interfaceClazz);
         String canonicalName = interfaceClazz.getCanonicalName();
         consumerBean.setId(canonicalName);
-        String registry = dubboConsumer.registry();
-        if (registry != null && registry.length() > 0) {
-            RegistryConfig registryConfig = new RegistryConfig();
-            registryConfig.setAddress(registry);
-            consumerBean.setRegistry(registryConfig);
+//        String registry = dubboConsumer.registry();
+//        if (registry != null && registry.length() > 0) {
+//            RegistryConfig registryConfig = new RegistryConfig();
+//            registryConfig.setAddress(registry);
+//            consumerBean.setRegistry(registryConfig);
+//        }
+        if (CollectionUtils.isEmpty(consumerBean.getRegistries())) {
+            List<RegistryConfig> registries = new LinkedList<>();
+            registries.add(DubboConsumerAutoConfiguration.this.properties.getZkRegistry());
+            registries.add(DubboConsumerAutoConfiguration.this.properties.getRedisRegistry());
+            consumerBean.setRegistries(registries);
+        }
+        if (consumerBean.getApplication() == null) {
+            consumerBean.setApplication(DubboConsumerAutoConfiguration.this.properties.getApplication());
         }
         String group = dubboConsumer.group();
         if (group == null || "".equals(group)) {

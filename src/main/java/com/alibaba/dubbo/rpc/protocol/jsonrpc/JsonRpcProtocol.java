@@ -96,7 +96,6 @@ public class JsonRpcProtocol extends AbstractProxyProtocol {
             serverMap.put(addr, server);
         }
         final String path = url.getAbsolutePath();
-//        JsonRpcServer skeleton = new JsonRpcServer(impl, type);
         JsonRpcServer skeleton = new JsonRpcServer(OBJECT_MAPPER, impl, type);
         skeletonMap.put(path, skeleton);
         return () -> skeletonMap.remove(path);

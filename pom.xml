@@ -15,6 +15,7 @@
         <java.version>1.6</java.version>
         <dubbo.version>2.6.0</dubbo.version>
         <spring-boot-dependencies.version>1.5.9.RELEASE</spring-boot-dependencies.version>
+        <resteasy.version>3.0.7.Final</resteasy.version>
     </properties>
 
     <dependencies>
@@ -37,6 +38,24 @@
             <version>0.2</version>
         </dependency>
         <!-- zookeeper客户端结束 -->
+
+        <!-- restful api开始 -->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <version>${resteasy.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-client</artifactId>
+            <version>${resteasy.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jackson-provider</artifactId>
+            <version>${resteasy.version}</version>
+        </dependency>
+        <!-- restful api结束 -->
 
         <!-- redis客户端开始 -->
         <dependency>

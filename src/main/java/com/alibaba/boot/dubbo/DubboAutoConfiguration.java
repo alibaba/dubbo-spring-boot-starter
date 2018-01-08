@@ -6,7 +6,10 @@ import com.alibaba.boot.dubbo.endpoint.DubboEndpoint;
 import com.alibaba.boot.dubbo.endpoint.DubboOperationEndpoint;
 import com.alibaba.boot.dubbo.health.DubboHealthIndicator;
 import com.alibaba.boot.dubbo.metrics.DubboMetrics;
+import com.alibaba.dubbo.common.utils.StringUtils;
+import com.alibaba.dubbo.config.MonitorConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
+import com.alibaba.dubbo.config.RegistryConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -58,10 +61,13 @@ public class DubboAutoConfiguration implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        fillDefaultForDubboProtocol(properties.getDubboProtocol());
+        fillDefaultForMonitor(properties.getMonitor());
     }
 
-    private void fillDefaultForDubboProtocol(ProtocolConfig dubboProtocol) {
-
+    private void fillDefaultForMonitor(MonitorConfig monitor) {
+        if (monitor != null) {
+            monitor.setProtocol(StringUtils.isBlank(monitor.getProtocol()) ? "registry" : monitor.getProtocol());
+            monitor.setDefault(true);
+        }
     }
 }

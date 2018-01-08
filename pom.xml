@@ -114,6 +114,7 @@
 
     <build>
         <plugins>
+            <!-- 编译源代码插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -123,6 +124,32 @@
                     <source>1.8</source>
                     <target>1.8</target>
                     <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+            <!-- 打包源代码插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- 打包过程忽略Junit测试 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.20.1</version>
+                <configuration>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
         </plugins>

@@ -4,7 +4,7 @@
 
     <groupId>com.alibaba</groupId>
     <artifactId>spring-boot-starter-dubbo-wsd</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>spring-boot-starter-dubbo</name>
@@ -13,7 +13,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.6</java.version>
-        <dubbo.version>2.5.3</dubbo.version>
+        <dubbo.version>2.6.0</dubbo.version>
         <spring-boot-dependencies.version>1.5.9.RELEASE</spring-boot-dependencies.version>
     </properties>
 
@@ -45,27 +45,6 @@
             <version>2.9.0</version>
         </dependency>
         <!-- redis客户端结束 -->
-
-        <!-- 支持json rpc开始 -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.portlet</groupId>
-            <artifactId>portlet-api</artifactId>
-            <version>2.0</version>
-            <optional>true</optional>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.github.briandilley.jsonrpc4j</groupId>
-            <artifactId>jsonrpc4j</artifactId>
-            <version>1.5.2</version>
-        </dependency>
-        <!-- 支持json rpc结束 -->
 
         <!-- 支持属性配置开始 -->
         <dependency>

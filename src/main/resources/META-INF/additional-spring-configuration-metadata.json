@@ -186,14 +186,13 @@
     {
       "name": "spring.dubbo.httpProtocol.name",
       "type": "java.lang.String",
-      "defaultValue": "jsonrpc",
+      "defaultValue": "rest",
       "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
-      "description": "http协议的名称，默认为jsonrpc."
+      "description": "http协议的名称，默认为rest."
     },
     {
       "name": "spring.dubbo.httpProtocol.port",
       "type": "java.lang.Integer",
-      "defaultValue": 20880,
       "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
       "description": "http协议的服务端口，与必须应用的tomcat端口相同."
     },

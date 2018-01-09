@@ -91,6 +91,22 @@ public class HelloConsumer {
 }
 ```
 
+### change list
+
+* 将jdk版本升级到1.8
+
+* 将dubbo版本升级到 2.6.0
+
+* 引入resteasy 相关pom来支持dubbo restful协议
+
+* 增加了支持dubbo restful协议的配置：com.alibaba.boot.dubbo.DubboRestContextAutoConfiguration
+
+* 修改了com.alibaba.boot.dubbo.DubboProperties以便能管理更多的配置
+
+* 增加了方法级注解com.alibaba.dubbo.config.annotation.ServiceMethod，以便starter能在方法粒度去控制rpc行为
+
+* 调整了DubboConsumerAutoConfiguration 和 DubboProviderAutoConfiguration 的部分逻辑
+
 ### 参考文档
 
 * dubbo 介绍: http://dubbo.io/

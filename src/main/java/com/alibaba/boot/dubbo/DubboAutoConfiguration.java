@@ -16,10 +16,6 @@ public class DubboAutoConfiguration {
 
     private static final Logger LOG = LoggerFactory.getLogger(DubboAutoConfiguration.class);
 
-    static {
-        System.setProperty("dubbo.application.logger", "slf4j");
-    }
-
     @Bean
     public static DubboHealthIndicator dubboHealthIndicator() {
         DubboHealthIndicator healthIndicator = new DubboHealthIndicator();

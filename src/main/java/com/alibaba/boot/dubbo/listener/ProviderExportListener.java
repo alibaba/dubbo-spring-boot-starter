@@ -3,7 +3,7 @@ package com.alibaba.boot.dubbo.listener;
 import java.util.Set;
 
 import com.alibaba.boot.dubbo.domain.ClassIdBean;
-import com.alibaba.boot.dubbo.domain.SpringBootStarterDobboConstants;
+import com.alibaba.boot.dubbo.domain.SpringBootStarterDubboConstants;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.extension.Activate;
 import com.alibaba.dubbo.common.utils.ConcurrentHashSet;
@@ -33,8 +33,8 @@ public class ProviderExportListener extends ExporterListenerAdapter {
     Invoker<?> invoker = exporter.getInvoker();
     Class<?> anInterface = invoker.getInterface();
     URL url = invoker.getUrl();
-    String group = url.getParameter(SpringBootStarterDobboConstants.GROUP);
-    String version = url.getParameter(SpringBootStarterDobboConstants.VERSION);
+    String group = url.getParameter(SpringBootStarterDubboConstants.GROUP);
+    String version = url.getParameter(SpringBootStarterDubboConstants.VERSION);
     ClassIdBean classIdBean = new ClassIdBean(anInterface, group, version);
     EXPORTEDINTERFACES_SET.add(classIdBean);
     if (!url.getProtocol().equals("injvm")) {
@@ -47,8 +47,8 @@ public class ProviderExportListener extends ExporterListenerAdapter {
     Invoker<?> invoker = exporter.getInvoker();
     Class<?> anInterface = invoker.getInterface();
     URL url = invoker.getUrl();
-    String group = url.getParameter(SpringBootStarterDobboConstants.GROUP);
-    String version = url.getParameter(SpringBootStarterDobboConstants.VERSION);
+    String group = url.getParameter(SpringBootStarterDubboConstants.GROUP);
+    String version = url.getParameter(SpringBootStarterDubboConstants.VERSION);
     ClassIdBean classIdBean = new ClassIdBean(anInterface, group, version);
     EXPORTEDINTERFACES_SET.remove(classIdBean);
     if (!url.getProtocol().equals("injvm")) {

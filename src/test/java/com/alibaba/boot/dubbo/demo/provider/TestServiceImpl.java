@@ -7,23 +7,25 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.alibaba.boot.dubbo.annotation.ServiceMethod;
 import com.alibaba.boot.dubbo.demo.api.DepartmentReq;
 import com.alibaba.boot.dubbo.demo.api.NameReq;
 import com.alibaba.boot.dubbo.demo.api.TestReq;
 import com.alibaba.boot.dubbo.demo.api.TestRes;
 import com.alibaba.boot.dubbo.demo.api.TestService;
 import com.alibaba.dubbo.common.utils.StringUtils;
-import com.alibaba.boot.dubbo.annotation.Constants;
 import com.alibaba.dubbo.config.annotation.Service;
-import com.alibaba.boot.dubbo.annotation.ServiceMethod;
 import com.alibaba.dubbo.rpc.protocol.rest.support.ContentType;
 import org.springframework.stereotype.Component;
+
+import static com.alibaba.boot.dubbo.domain.SpringBootStarterDubboConstants.PROTOCOL_DUBBO;
+import static com.alibaba.boot.dubbo.domain.SpringBootStarterDubboConstants.PROTOCOL_REST;
 
 @Component
 @Path("tests")
 @Consumes({MediaType.APPLICATION_JSON})
 @Produces({ContentType.APPLICATION_JSON_UTF_8})
-@Service(interfaceClass = TestService.class, protocol = {Constants.PROTOCOL_DUBBO, Constants.PROTOCOL_REST})
+@Service(interfaceClass = TestService.class, protocol = {PROTOCOL_DUBBO, PROTOCOL_REST})
 public class TestServiceImpl implements TestService {
 
     @ServiceMethod(timeout = 2000)

@@ -8,7 +8,7 @@ package com.alibaba.boot.dubbo.domain;
  * @email xionghui.xh@alibaba-inc.com
  * @since 1.0.0
  */
-public class SpringBootStarterDobboConstants {
+public class SpringBootStarterDubboConstants {
 
   public static final String GROUP = "group";
 

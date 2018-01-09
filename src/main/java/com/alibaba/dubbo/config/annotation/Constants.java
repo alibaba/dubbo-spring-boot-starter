@@ -1,5 +1,9 @@
 package com.alibaba.dubbo.config.annotation;
 
+/**
+ * 提供一组常量，避免注解配置里直接写字符串
+ * 直接写，容易写错（没法对书写内容做编译检查）
+ */
 public abstract class Constants {
 
     /**

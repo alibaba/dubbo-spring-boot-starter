@@ -1,17 +1,17 @@
 package com.alibaba.boot.dubbo;
 
 import java.lang.reflect.Field;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.Resource;
 
-import com.alibaba.boot.dubbo.annotation.DubboConsumer;
 import com.alibaba.boot.dubbo.annotation.EnableDubboConfiguration;
 import com.alibaba.boot.dubbo.domain.ClassIdBean;
+import com.alibaba.boot.dubbo.utils.DubboAutoConfigUtils;
 import com.alibaba.dubbo.common.utils.CollectionUtils;
-import com.alibaba.dubbo.config.RegistryConfig;
+import com.alibaba.dubbo.common.utils.StringUtils;
+import com.alibaba.dubbo.config.annotation.Constants;
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.dubbo.config.spring.ReferenceBean;
 import org.slf4j.Logger;
@@ -61,11 +61,11 @@ public class DubboConsumerAutoConfiguration {
 
                 try {
                     for (Field field : objClz.getDeclaredFields()) {
-                        DubboConsumer dubboConsumer = field.getAnnotation(DubboConsumer.class);
-                        if (dubboConsumer != null) {
+                        Reference reference = field.getAnnotation(Reference.class);
+                        if (reference != null) {
                             Class<?> type = field.getType();
                             ReferenceBean<?> consumerBean =
-                                    DubboConsumerAutoConfiguration.this.getConsumerBean(type, dubboConsumer);
+                                    DubboConsumerAutoConfiguration.this.getConsumerBean(type, reference);
                             String group = consumerBean.getGroup();
                             String version = consumerBean.getVersion();
                             ClassIdBean classIdBean = new ClassIdBean(type, group, version);
@@ -79,19 +79,23 @@ public class DubboConsumerAutoConfiguration {
                                     if (dubboReference == null) {
                                         consumerBean.setApplicationContext(
                                                 DubboConsumerAutoConfiguration.this.applicationContext);
-                                        consumerBean
-                                                .setApplication(DubboConsumerAutoConfiguration.this.properties
-                                                        .getApplication());
-                                        RegistryConfig registry = consumerBean.getRegistry();
-                                        if (registry == null) {
-                                            consumerBean
-                                                    .setRegistry(DubboConsumerAutoConfiguration.this.properties
-                                                            .getRedisRegistry());
+
+                                        if (consumerBean.getApplication() == null) {
+                                            consumerBean.setApplication(
+                                                    DubboConsumerAutoConfiguration.this.properties.getApplication());
                                         }
-                                        consumerBean
-                                                .setMonitor(DubboConsumerAutoConfiguration.this.properties
-                                                        .getMonitor());
+
+                                        if (consumerBean.getRegistry() == null) {
+                                            consumerBean.setRegistry(DubboConsumerAutoConfiguration.this.properties.getZkRegistry());
+                                        }
+
+                                        if (consumerBean.getMonitor() == null) {
+                                            consumerBean.setMonitor(
+                                                    DubboConsumerAutoConfiguration.this.properties.getMonitor());
+                                        }
+
                                         consumerBean.afterPropertiesSet();
+
                                         // 理论上dubboReference不能为空，否则就会抛NullPointerException了
                                         dubboReference = consumerBean.getObject();
                                         DubboConsumerAutoConfiguration.DUBBO_REFERENCES_MAP.put(classIdBean,
@@ -119,73 +123,71 @@ public class DubboConsumerAutoConfiguration {
     }
 
     /**
-     * 设置相关配置信息, @see DubboConsumer
+     * 设置相关配置信息,
      *
      * @param interfaceClazz
-     * @param dubboConsumer
+     * @param reference
      * @return
      * @throws BeansException
+     * @see com.alibaba.dubbo.config.annotation.Reference
      */
-    private <T> ReferenceBean<T> getConsumerBean(Class<T> interfaceClazz, DubboConsumer dubboConsumer)
+    private <T> ReferenceBean<T> getConsumerBean(Class<T> interfaceClazz, Reference reference)
             throws BeansException {
-        LOG.info("begin to construct consumer bean, interfaceClazz={}, dubboConsumer={}",
-                interfaceClazz.getCanonicalName(), dubboConsumer);
+        LOG.info("begin to construct consumer bean, interfaceClazz={}, reference={}",
+                interfaceClazz.getCanonicalName(), reference);
         ReferenceBean<T> consumerBean = new ReferenceBean<T>();
         consumerBean.setInterface(interfaceClazz);
         String canonicalName = interfaceClazz.getCanonicalName();
         consumerBean.setId(canonicalName);
-//        String registry = dubboConsumer.registry();
-//        if (registry != null && registry.length() > 0) {
-//            RegistryConfig registryConfig = new RegistryConfig();
-//            registryConfig.setAddress(registry);
-//            consumerBean.setRegistry(registryConfig);
-//        }
-        if (CollectionUtils.isEmpty(consumerBean.getRegistries())) {
-            List<RegistryConfig> registries = new LinkedList<>();
-            registries.add(DubboConsumerAutoConfiguration.this.properties.getZkRegistry());
-            registries.add(DubboConsumerAutoConfiguration.this.properties.getRedisRegistry());
-            consumerBean.setRegistries(registries);
+
+        if (StringUtils.isBlank(consumerBean.getVersion())) {
+            String version = StringUtils.isNotEmpty(reference.version()) ? reference.version()
+                    : this.properties.getVersion();
+            consumerBean.setVersion(version);
         }
+
+        if (StringUtils.isBlank(consumerBean.getGroup())) {
+            String group = StringUtils.isNotEmpty(reference.group()) ? reference.group()
+                    : this.properties.getGroup();
+            consumerBean.setGroup(group);
+        }
+
         if (consumerBean.getApplication() == null) {
             consumerBean.setApplication(DubboConsumerAutoConfiguration.this.properties.getApplication());
         }
-        String group = dubboConsumer.group();
-        if (group == null || "".equals(group)) {
-            group = this.properties.getGroup();
+
+        if (consumerBean.getRegistry() == null) {
+            consumerBean.setRegistry(DubboConsumerAutoConfiguration.this.properties.getZkRegistry());
         }
-        if (group != null && !"".equals(group)) {
-            consumerBean.setGroup(group);
+
+        if (consumerBean.getMonitor() == null) {
+            consumerBean.setMonitor(DubboConsumerAutoConfiguration.this.properties.getMonitor());
         }
-        String version = dubboConsumer.version();
-        if (version == null || "".equals(version)) {
-            version = this.properties.getVersion();
-        }
-        if (version != null && !"".equals(version)) {
-            consumerBean.setVersion(version);
-        }
-        int timeout = dubboConsumer.timeout();
+
+        int timeout = reference.timeout();
         consumerBean.setTimeout(timeout);
-        String client = dubboConsumer.client();
+        String client = reference.client();
         consumerBean.setClient(client);
-        String url = dubboConsumer.url();
+        String url = reference.url();
         consumerBean.setUrl(url);
-        String protocol = dubboConsumer.protocol();
-        consumerBean.setProtocol(protocol);
-        boolean check = dubboConsumer.check();
+        consumerBean.setProtocol(Constants.PROTOCOL_DUBBO);
+        boolean check = reference.check();
         consumerBean.setCheck(check);
-        boolean lazy = dubboConsumer.lazy();
+        boolean lazy = reference.lazy();
         consumerBean.setLazy(lazy);
-        int retries = dubboConsumer.retries();
+        int retries = reference.retries();
         consumerBean.setRetries(retries);
-        int actives = dubboConsumer.actives();
+        int actives = reference.actives();
         consumerBean.setActives(actives);
-        String loadbalance = dubboConsumer.loadbalance();
+        String loadbalance = reference.loadbalance();
         consumerBean.setLoadbalance(loadbalance);
-        boolean async = dubboConsumer.async();
+        boolean async = reference.async();
         consumerBean.setAsync(async);
-        boolean sent = dubboConsumer.sent();
+        boolean sent = reference.sent();
         consumerBean.setSent(sent);
-        LOG.info("construct consumer bean complete, interfaceClazz={}, dubboConsumer={}, consumerBean={}", interfaceClazz.getCanonicalName(), dubboConsumer, consumerBean);
+
+        LOG.info("construct consumer bean complete, interfaceClazz={}, reference={}, consumerBean={}",
+                interfaceClazz.getCanonicalName(), reference, consumerBean);
         return consumerBean;
     }
 }

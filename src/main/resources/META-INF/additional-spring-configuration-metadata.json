@@ -184,43 +184,43 @@
       "description": "dubbo协议的访问日志."
     },
     {
-      "name": "spring.dubbo.httpProtocol.name",
+      "name": "spring.dubbo.restProtocol.name",
       "type": "java.lang.String",
       "defaultValue": "rest",
       "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
-      "description": "http协议的名称，默认为rest."
+      "description": "rest协议的名称，默认为rest."
     },
     {
-      "name": "spring.dubbo.httpProtocol.port",
+      "name": "spring.dubbo.restProtocol.port",
       "type": "java.lang.Integer",
       "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
-      "description": "http协议的服务端口，与必须应用的tomcat端口相同."
+      "description": "rest协议的服务端口，与必须应用的tomcat端口相同."
     },
     {
-      "name": "spring.dubbo.httpProtocol.host",
+      "name": "spring.dubbo.restProtocol.host",
       "type": "java.lang.String",
       "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
       "description": "dubbo协议的服务IP地址(多网卡时使用)."
     },
     {
-      "name": "spring.dubbo.httpProtocol.contextpath",
+      "name": "spring.dubbo.restProtocol.contextpath",
       "type": "java.lang.String",
       "defaultValue": "/dubbo",
       "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
-      "description": "http协议的上下文路径."
+      "description": "rest协议的上下文路径."
     },
     {
-      "name": "spring.dubbo.httpProtocol.server",
+      "name": "spring.dubbo.restProtocol.server",
       "type": "java.lang.String",
       "defaultValue": "servlet",
       "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
-      "description": "http协议的服务器端实现."
+      "description": "rest协议的服务器端实现."
     },
     {
-      "name": "spring.dubbo.httpProtocol.accesslog",
+      "name": "spring.dubbo.restProtocol.accesslog",
       "type": "java.lang.String",
       "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
-      "description": "http协议的访问日志."
+      "description": "rest协议的访问日志."
     },
     {
       "name": "spring.dubbo.monitor.protocol",

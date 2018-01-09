@@ -17,7 +17,7 @@ public class DubboProperties {
 
     private ProtocolConfig dubboProtocol;
 
-    private ProtocolConfig httpProtocol;
+    private ProtocolConfig restProtocol;
 
     private MonitorConfig monitor;
 
@@ -57,12 +57,12 @@ public class DubboProperties {
         this.dubboProtocol = dubboProtocol;
     }
 
-    public ProtocolConfig getHttpProtocol() {
-        return httpProtocol;
+    public ProtocolConfig getRestProtocol() {
+        return restProtocol;
     }
 
-    public void setHttpProtocol(ProtocolConfig httpProtocol) {
-        this.httpProtocol = httpProtocol;
+    public void setRestProtocol(ProtocolConfig restProtocol) {
+        this.restProtocol = restProtocol;
     }
 
     public MonitorConfig getMonitor() {
@@ -96,7 +96,7 @@ public class DubboProperties {
                 ", zkRegistry=" + zkRegistry +
                 ", redisRegistry=" + redisRegistry +
                 ", dubboProtocol=" + dubboProtocol +
-                ", httpProtocol=" + httpProtocol +
+                ", restProtocol=" + restProtocol +
                 ", monitor=" + monitor +
                 ", version=" + version +
                 ", group=" + group +

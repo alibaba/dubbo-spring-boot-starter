@@ -1,0 +1,256 @@
+{
+  "properties": [
+    {
+      "name": "spring.dubbo.application.name",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.ApplicationConfig",
+      "description": "应用名称."
+    },
+    {
+      "name": "spring.dubbo.application.version",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.ApplicationConfig",
+      "description": "模块版本."
+    },
+    {
+      "name": "spring.dubbo.application.owner",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.ApplicationConfig",
+      "description": "应用负责人."
+    },
+    {
+      "name": "spring.dubbo.application.organization",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.ApplicationConfig",
+      "description": "组织名(BU或部门)."
+    },
+    {
+      "name": "spring.dubbo.application.architecture",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.ApplicationConfig",
+      "description": "分层."
+    },
+    {
+      "name": "spring.dubbo.application.environment",
+      "type": "java.lang.String",
+      "values": [
+        {
+          "value": "develop"
+        },
+        {
+          "value": "test"
+        },
+        {
+          "value": "product"
+        }
+      ],
+      "sourceType": "com.alibaba.dubbo.config.ApplicationConfig",
+      "description": "环境，如：dev/test/run."
+    },
+    {
+      "name": "spring.dubbo.application.logger",
+      "type": "java.lang.String",
+      "values": [
+        {
+          "value": "slf4j"
+        },
+        {
+          "value": "log4j"
+        }
+      ],
+      "defaultValue": "slf4j",
+      "sourceType": "com.alibaba.dubbo.config.ApplicationConfig",
+      "description": "选择哪种方式输出dubbo内部日志."
+    },
+    {
+      "name": "spring.dubbo.zkRegistry.address",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.RegistryConfig",
+      "description": "zookeeper注册中心地址."
+    },
+    {
+      "name": "spring.dubbo.zkRegistry.client",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.RegistryConfig",
+      "description": "zookeeper客户端实现，改为默认采用apache的实现."
+    },
+    {
+      "name": "spring.dubbo.zkRegistry.username",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.RegistryConfig",
+      "description": "zookeeper注册中心地址的用户名."
+    },
+    {
+      "name": "spring.dubbo.zkRegistry.password",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.RegistryConfig",
+      "description": "zookeeper注册中心地址的密码."
+    },
+    {
+      "name": "spring.dubbo.zkRegistry.check",
+      "type": "java.lang.String",
+      "defaultValue": true,
+      "sourceType": "com.alibaba.dubbo.config.RegistryConfig",
+      "description": "启动时检查zookeeper注册中心是否存在."
+    },
+    {
+      "name": "spring.dubbo.zkRegistry.register",
+      "type": "java.lang.Boolean",
+      "defaultValue": true,
+      "sourceType": "com.alibaba.dubbo.config.RegistryConfig",
+      "description": "在zookeeper注册中心上服务是否暴露."
+    },
+    {
+      "name": "spring.dubbo.zkRegistry.subscribe",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.alibaba.dubbo.config.RegistryConfig",
+      "description": "在zookeeper注册中心上服务是否引用."
+    },
+    {
+      "name": "spring.dubbo.redisRegistry.address",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.RegistryConfig",
+      "description": "reids注册中心地址."
+    },
+    {
+      "name": "spring.dubbo.redisRegistry.password",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.RegistryConfig",
+      "description": "reids注册中心地址的密码."
+    },
+    {
+      "name": "spring.dubbo.redisRegistry.check",
+      "type": "java.lang.String",
+      "defaultValue": false,
+      "sourceType": "com.alibaba.dubbo.config.RegistryConfig",
+      "description": "启动时检查reids注册中心是否存在."
+    },
+    {
+      "name": "spring.dubbo.redisRegistry.register",
+      "type": "java.lang.Boolean",
+      "defaultValue": false,
+      "sourceType": "com.alibaba.dubbo.config.RegistryConfig",
+      "description": "在reids注册中心上服务是否暴露."
+    },
+    {
+      "name": "spring.dubbo.redisRegistry.subscribe",
+      "type": "java.lang.Boolean",
+      "defaultValue": false,
+      "sourceType": "com.alibaba.dubbo.config.RegistryConfig",
+      "description": "在reids注册中心上服务是否引用."
+    },
+    {
+      "name": "spring.dubbo.dubboProtocol.name",
+      "type": "java.lang.String",
+      "defaultValue": "dubbo",
+      "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
+      "description": "dubbo协议的协议名称，默认为dubbo."
+    },
+    {
+      "name": "spring.dubbo.dubboProtocol.port",
+      "type": "java.lang.Integer",
+      "defaultValue": 20880,
+      "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
+      "description": "dubbo协议的服务端口."
+    },
+    {
+      "name": "spring.dubbo.dubboProtocol.host",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
+      "description": "dubbo协议的服务IP地址(多网卡时使用)."
+    },
+    {
+      "name": "spring.dubbo.dubboProtocol.threadpool",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
+      "description": "dubbo协议的线程池类型."
+    },
+    {
+      "name": "spring.dubbo.dubboProtocol.threads",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
+      "description": "dubbo协议的线程池大小(固定大小)."
+    },
+    {
+      "name": "spring.dubbo.dubboProtocol.iothreads",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
+      "description": "dubbo协议的IO线程池大小(固定大小)."
+    },
+    {
+      "name": "spring.dubbo.dubboProtocol.accesslog",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
+      "description": "dubbo协议的访问日志."
+    },
+    {
+      "name": "spring.dubbo.restProtocol.name",
+      "type": "java.lang.String",
+      "defaultValue": "rest",
+      "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
+      "description": "rest协议的名称，默认为rest."
+    },
+    {
+      "name": "spring.dubbo.restProtocol.port",
+      "type": "java.lang.Integer",
+      "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
+      "description": "rest协议的服务端口，与必须应用的tomcat端口相同."
+    },
+    {
+      "name": "spring.dubbo.restProtocol.host",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
+      "description": "dubbo协议的服务IP地址(多网卡时使用)."
+    },
+    {
+      "name": "spring.dubbo.restProtocol.contextpath",
+      "type": "java.lang.String",
+      "defaultValue": "/dubbo",
+      "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
+      "description": "rest协议的上下文路径."
+    },
+    {
+      "name": "spring.dubbo.restProtocol.server",
+      "type": "java.lang.String",
+      "defaultValue": "servlet",
+      "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
+      "description": "rest协议的服务器端实现."
+    },
+    {
+      "name": "spring.dubbo.restProtocol.accesslog",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.ProtocolConfig",
+      "description": "rest协议的访问日志."
+    },
+    {
+      "name": "spring.dubbo.monitor.protocol",
+      "type": "java.lang.String",
+      "values": [
+        {
+          "value": "registry"
+        }
+      ],
+      "defaultValue": "registry",
+      "sourceType": "com.alibaba.dubbo.config.MonitorConfig",
+      "description": "监控服务的协议，配置registry表示从注册中心查找monitor."
+    },
+    {
+      "name": "spring.dubbo.monitor.address",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.dubbo.config.MonitorConfig",
+      "description": "监控服务的地址，可以配置地址来直连注册中心."
+    },
+    {
+      "name": "spring.dubbo.version",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.boot.dubbo.DubboProperties",
+      "description": "全局版本号，可被服务级配置覆盖."
+    },
+    {
+      "name": "spring.dubbo.group",
+      "type": "java.lang.String",
+      "sourceType": "com.alibaba.boot.dubbo.DubboProperties",
+      "description": "全局分组，可被服务级配置覆盖."
+    }
+  ]
+}

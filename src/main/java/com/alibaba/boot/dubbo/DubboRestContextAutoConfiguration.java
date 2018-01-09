@@ -32,9 +32,13 @@ public class DubboRestContextAutoConfiguration implements ServletContextInitiali
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-        registerListeners(servletContext);
+        if (properties != null && properties.getRestProtocol() != null) {
+            registerListeners(servletContext);
 
-        registerServlets(servletContext);
+            registerServlets(servletContext);
+        } else {
+            LOG.info("rest protocol not configuration: properties={}", properties);
+        }
     }
 
     private void registerListeners(ServletContext servletContext) {

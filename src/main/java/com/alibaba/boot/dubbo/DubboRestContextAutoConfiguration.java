@@ -38,7 +38,7 @@ public class DubboRestContextAutoConfiguration implements ServletContextInitiali
     }
 
     private void registerListeners(ServletContext servletContext) {
-        String urlMapping = properties.getHttpProtocol().getContextpath() + "/*";
+        String urlMapping = properties.getRestProtocol().getContextpath() + "/*";
         LOG.info("begin to construct dubbo BootstrapListener, urlMapping={}", urlMapping);
 
         com.alibaba.dubbo.remoting.http.servlet.BootstrapListener listener = new com.alibaba.dubbo.remoting.http.servlet.BootstrapListener();
@@ -48,7 +48,7 @@ public class DubboRestContextAutoConfiguration implements ServletContextInitiali
     }
 
     private void registerServlets(ServletContext servletContext) {
-        String urlMapping = properties.getHttpProtocol().getContextpath() + "/*";
+        String urlMapping = properties.getRestProtocol().getContextpath() + "/*";
         LOG.info("begin to construct dubbo DispatcherServlet, urlMapping={}", urlMapping);
 
         com.alibaba.dubbo.remoting.http.servlet.DispatcherServlet dubboServlet = new com.alibaba.dubbo.remoting.http.servlet.DispatcherServlet();

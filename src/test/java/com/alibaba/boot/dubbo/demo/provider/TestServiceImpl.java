@@ -13,9 +13,9 @@ import com.alibaba.boot.dubbo.demo.api.TestReq;
 import com.alibaba.boot.dubbo.demo.api.TestRes;
 import com.alibaba.boot.dubbo.demo.api.TestService;
 import com.alibaba.dubbo.common.utils.StringUtils;
-import com.alibaba.dubbo.config.annotation.Constants;
+import com.alibaba.boot.dubbo.annotation.Constants;
 import com.alibaba.dubbo.config.annotation.Service;
-import com.alibaba.dubbo.config.annotation.ServiceMethod;
+import com.alibaba.boot.dubbo.annotation.ServiceMethod;
 import com.alibaba.dubbo.rpc.protocol.rest.support.ContentType;
 import org.springframework.stereotype.Component;
 

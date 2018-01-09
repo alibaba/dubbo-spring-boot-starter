@@ -5,13 +5,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.Resource;
 
+import com.alibaba.boot.dubbo.annotation.DubboConsumer;
 import com.alibaba.boot.dubbo.annotation.EnableDubboConfiguration;
 import com.alibaba.boot.dubbo.domain.ClassIdBean;
-import com.alibaba.boot.dubbo.utils.DubboAutoConfigUtils;
-import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.alibaba.dubbo.common.utils.StringUtils;
-import com.alibaba.dubbo.config.annotation.Constants;
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.dubbo.config.spring.ReferenceBean;
 import org.slf4j.Logger;
@@ -61,11 +58,11 @@ public class DubboConsumerAutoConfiguration {
 
                 try {
                     for (Field field : objClz.getDeclaredFields()) {
-                        Reference reference = field.getAnnotation(Reference.class);
-                        if (reference != null) {
+                        DubboConsumer dubboConsumer = field.getAnnotation(DubboConsumer.class);
+                        if (dubboConsumer != null) {
                             Class<?> type = field.getType();
                             ReferenceBean<?> consumerBean =
-                                    DubboConsumerAutoConfiguration.this.getConsumerBean(type, reference);
+                                    DubboConsumerAutoConfiguration.this.getConsumerBean(type, dubboConsumer);
                             String group = consumerBean.getGroup();
                             String version = consumerBean.getVersion();
                             ClassIdBean classIdBean = new ClassIdBean(type, group, version);
@@ -126,28 +123,28 @@ public class DubboConsumerAutoConfiguration {
      * 设置相关配置信息,
      *
      * @param interfaceClazz
-     * @param reference
+     * @param dubboConsumer
      * @return
      * @throws BeansException
      * @see com.alibaba.dubbo.config.annotation.Reference
      */
-    private <T> ReferenceBean<T> getConsumerBean(Class<T> interfaceClazz, Reference reference)
+    private <T> ReferenceBean<T> getConsumerBean(Class<T> interfaceClazz, DubboConsumer dubboConsumer)
             throws BeansException {
-        LOG.info("begin to construct consumer bean, interfaceClazz={}, reference={}",
-                interfaceClazz.getCanonicalName(), reference);
+        LOG.info("begin to construct consumer bean, interfaceClazz={}, dubboConsumer={}",
+                interfaceClazz.getCanonicalName(), dubboConsumer);
         ReferenceBean<T> consumerBean = new ReferenceBean<T>();
         consumerBean.setInterface(interfaceClazz);
         String canonicalName = interfaceClazz.getCanonicalName();
         consumerBean.setId(canonicalName);
 
         if (StringUtils.isBlank(consumerBean.getVersion())) {
-            String version = StringUtils.isNotEmpty(reference.version()) ? reference.version()
+            String version = StringUtils.isNotEmpty(dubboConsumer.version()) ? dubboConsumer.version()
                     : this.properties.getVersion();
             consumerBean.setVersion(version);
         }
 
         if (StringUtils.isBlank(consumerBean.getGroup())) {
-            String group = StringUtils.isNotEmpty(reference.group()) ? reference.group()
+            String group = StringUtils.isNotEmpty(dubboConsumer.group()) ? dubboConsumer.group()
                     : this.properties.getGroup();
             consumerBean.setGroup(group);
         }
@@ -164,30 +161,31 @@ public class DubboConsumerAutoConfiguration {
             consumerBean.setMonitor(DubboConsumerAutoConfiguration.this.properties.getMonitor());
         }
 
-        int timeout = reference.timeout();
+        int timeout = dubboConsumer.timeout();
         consumerBean.setTimeout(timeout);
-        String client = reference.client();
+        String client = dubboConsumer.client();
         consumerBean.setClient(client);
-        String url = reference.url();
+        String url = dubboConsumer.url();
         consumerBean.setUrl(url);
-        consumerBean.setProtocol(Constants.PROTOCOL_DUBBO);
-        boolean check = reference.check();
+        String protocol = dubboConsumer.protocol();
+        consumerBean.setProtocol(protocol);
+        boolean check = dubboConsumer.check();
         consumerBean.setCheck(check);
-        boolean lazy = reference.lazy();
+        boolean lazy = dubboConsumer.lazy();
         consumerBean.setLazy(lazy);
-        int retries = reference.retries();
+        int retries = dubboConsumer.retries();
         consumerBean.setRetries(retries);
-        int actives = reference.actives();
+        int actives = dubboConsumer.actives();
         consumerBean.setActives(actives);
-        String loadbalance = reference.loadbalance();
+        String loadbalance = dubboConsumer.loadbalance();
         consumerBean.setLoadbalance(loadbalance);
-        boolean async = reference.async();
+        boolean async = dubboConsumer.async();
         consumerBean.setAsync(async);
-        boolean sent = reference.sent();
+        boolean sent = dubboConsumer.sent();
         consumerBean.setSent(sent);
 
-        LOG.info("construct consumer bean complete, interfaceClazz={}, reference={}, consumerBean={}",
-                interfaceClazz.getCanonicalName(), reference, consumerBean);
+        LOG.info("construct consumer bean complete, interfaceClazz={}, dubboConsumer={}, consumerBean={}",
+                interfaceClazz.getCanonicalName(), dubboConsumer, consumerBean);
         return consumerBean;
     }
 }

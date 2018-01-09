@@ -1,4 +1,4 @@
-package com.alibaba.dubbo.rpc.api;
+package com.alibaba.boot.dubbo.domain;
 
 import java.io.Serializable;
 

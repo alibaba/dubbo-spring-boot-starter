@@ -11,7 +11,7 @@ import com.alibaba.boot.dubbo.utils.DubboAutoConfigUtils;
 import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.alibaba.dubbo.common.utils.StringUtils;
 import com.alibaba.dubbo.config.MethodConfig;
-import com.alibaba.dubbo.config.annotation.ServiceMethod;
+import com.alibaba.boot.dubbo.annotation.ServiceMethod;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.dubbo.config.spring.ServiceBean;
 import org.slf4j.Logger;
@@ -24,7 +24,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.AnnotationUtils;
 
 @Configuration
 @ConditionalOnClass(Service.class)

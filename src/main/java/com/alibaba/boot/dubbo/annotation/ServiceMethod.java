@@ -1,4 +1,4 @@
-package com.alibaba.dubbo.config.annotation;
+package com.alibaba.boot.dubbo.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

@@ -1,7 +1,7 @@
 package com.alibaba.boot.dubbo.listener;
 
 import com.alibaba.boot.dubbo.domain.ClassIdBean;
-import com.alibaba.boot.dubbo.domain.SpringBootStarterDobboConstants;
+import com.alibaba.boot.dubbo.domain.SpringBootStarterDubboConstants;
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.extension.Activate;
@@ -25,8 +25,8 @@ public class ConsumerInvokeStaticsFilter extends StaticsFilterHelper {
     Invoker<?> invocationInvoker = invocation.getInvoker();
     Class<?> anInterface = invocationInvoker.getInterface();
     URL url = invocationInvoker.getUrl();
-    String group = url.getParameter(SpringBootStarterDobboConstants.GROUP);
-    String version = url.getParameter(SpringBootStarterDobboConstants.VERSION);
+    String group = url.getParameter(SpringBootStarterDubboConstants.GROUP);
+    String version = url.getParameter(SpringBootStarterDubboConstants.VERSION);
     ClassIdBean classIdBean = new ClassIdBean(anInterface, group, version);
     increase(classIdBean, invocation.getMethodName());
     return invoker.invoke(invocation);

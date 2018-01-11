@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.alibaba.boot.dubbo.domain.ClassIdBean;
-import com.alibaba.boot.dubbo.domain.SpringBootStarterDobboConstants;
+import com.alibaba.boot.dubbo.domain.SpringBootStarterDubboConstants;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.extension.Activate;
 import com.alibaba.dubbo.common.utils.ConcurrentHashSet;
@@ -34,8 +34,8 @@ public class ConsumerSubscribeListener extends InvokerListenerAdapter {
   public void referred(Invoker<?> invoker) throws RpcException {
     Class<?> anInterface = invoker.getInterface();
     URL url = invoker.getUrl();
-    String group = url.getParameter(SpringBootStarterDobboConstants.GROUP);
-    String version = url.getParameter(SpringBootStarterDobboConstants.VERSION);
+    String group = url.getParameter(SpringBootStarterDubboConstants.GROUP);
+    String version = url.getParameter(SpringBootStarterDubboConstants.VERSION);
     ClassIdBean classIdBean = new ClassIdBean(anInterface, group, version);
     SUBSCRIBEDINTERFACES_SET.add(classIdBean);
     Set<String> connectionSet = CONNECTION_MAP.get(classIdBean);
@@ -50,8 +50,8 @@ public class ConsumerSubscribeListener extends InvokerListenerAdapter {
   public void destroyed(Invoker<?> invoker) {
     Class<?> anInterface = invoker.getInterface();
     URL url = invoker.getUrl();
-    String group = url.getParameter(SpringBootStarterDobboConstants.GROUP);
-    String version = url.getParameter(SpringBootStarterDobboConstants.VERSION);
+    String group = url.getParameter(SpringBootStarterDubboConstants.GROUP);
+    String version = url.getParameter(SpringBootStarterDubboConstants.VERSION);
     ClassIdBean classIdBean = new ClassIdBean(anInterface, group, version);
     SUBSCRIBEDINTERFACES_SET.remove(classIdBean);
     Set<String> connectionSet = CONNECTION_MAP.get(classIdBean);

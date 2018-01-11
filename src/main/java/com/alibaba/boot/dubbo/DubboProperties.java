@@ -1,107 +1,105 @@
 package com.alibaba.boot.dubbo;
 
+import com.alibaba.dubbo.config.ApplicationConfig;
+import com.alibaba.dubbo.config.MonitorConfig;
+import com.alibaba.dubbo.config.ProtocolConfig;
+import com.alibaba.dubbo.config.RegistryConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-/**
- * dubbo properties
- *
- * @author xionghui
- * @email xionghui.xh@alibaba-inc.com
- * @since 1.0.0
- */
 @ConfigurationProperties(prefix = "spring.dubbo")
 public class DubboProperties {
-  /**
-   * dubbo application name
-   */
-  private String appname;
-  /**
-   * dubbo registry address
-   */
-  private String registry;
-  /**
-   * communication protocol, default is dubbo
-   */
-  private String protocol = "dubbo";
-  /**
-   * dubbo listen port, default 20800
-   */
-  private int port = 20800;
-  /**
-   * dubbo thread count, default 200
-   */
-  private int threads = 200;
 
-  /**
-   * dubbo version, may override by {@link com.alibaba.dubbo.config.annotation.Service#version()}
-   */
-  private String version = "";
+    private ApplicationConfig application;
 
-  /**
-   * dubbo group, may override by {@link com.alibaba.dubbo.config.annotation.Service#group()}
-   */
-  private String group = "";
+    private RegistryConfig zkRegistry;
 
-  public String getAppname() {
-    return this.appname;
-  }
+    private RegistryConfig redisRegistry;
 
-  public void setAppname(String appname) {
-    this.appname = appname;
-  }
+    private ProtocolConfig dubboProtocol;
 
-  public String getRegistry() {
-    return this.registry;
-  }
+    private ProtocolConfig restProtocol;
 
-  public void setRegistry(String registry) {
-    this.registry = registry;
-  }
+    private MonitorConfig monitor;
 
-  public String getProtocol() {
-    return this.protocol;
-  }
+    private String version;
 
-  public void setProtocol(String protocol) {
-    this.protocol = protocol;
-  }
+    private String group;
 
-  public int getPort() {
-    return this.port;
-  }
+    public ApplicationConfig getApplication() {
+        return application;
+    }
 
-  public void setPort(int port) {
-    this.port = port;
-  }
+    public void setApplication(ApplicationConfig application) {
+        this.application = application;
+    }
 
-  public int getThreads() {
-    return this.threads;
-  }
+    public RegistryConfig getZkRegistry() {
+        return zkRegistry;
+    }
 
-  public void setThreads(int threads) {
-    this.threads = threads;
-  }
+    public void setZkRegistry(RegistryConfig zkRegistry) {
+        this.zkRegistry = zkRegistry;
+    }
 
-  public String getVersion() {
-    return this.version;
-  }
+    public RegistryConfig getRedisRegistry() {
+        return redisRegistry;
+    }
 
-  public void setVersion(String version) {
-    this.version = version;
-  }
+    public void setRedisRegistry(RegistryConfig redisRegistry) {
+        this.redisRegistry = redisRegistry;
+    }
 
-  public String getGroup() {
-    return this.group;
-  }
+    public ProtocolConfig getDubboProtocol() {
+        return dubboProtocol;
+    }
 
-  public void setGroup(String group) {
-    this.group = group;
-  }
+    public void setDubboProtocol(ProtocolConfig dubboProtocol) {
+        this.dubboProtocol = dubboProtocol;
+    }
 
-  @Override
-  public String toString() {
-    return "DubboProperties [appname=" + this.appname + ", registry=" + this.registry
-        + ", protocol=" + this.protocol + ", port=" + this.port + ", threads=" + this.threads
-        + ", version=" + this.version + ", group=" + this.group + "]";
-  }
+    public ProtocolConfig getRestProtocol() {
+        return restProtocol;
+    }
+
+    public void setRestProtocol(ProtocolConfig restProtocol) {
+        this.restProtocol = restProtocol;
+    }
+
+    public MonitorConfig getMonitor() {
+        return monitor;
+    }
+
+    public void setMonitor(MonitorConfig monitor) {
+        this.monitor = monitor;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    @Override
+    public String toString() {
+        return "DubboProperties{" +
+                "application=" + application +
+                ", zkRegistry=" + zkRegistry +
+                ", redisRegistry=" + redisRegistry +
+                ", dubboProtocol=" + dubboProtocol +
+                ", restProtocol=" + restProtocol +
+                ", monitor=" + monitor +
+                ", version=" + version +
+                ", group=" + group +
+                '}';
+    }
 }

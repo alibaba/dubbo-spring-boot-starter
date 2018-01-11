@@ -1,7 +1,7 @@
 package com.alibaba.boot.dubbo.listener;
 
 import com.alibaba.boot.dubbo.domain.ClassIdBean;
-import com.alibaba.boot.dubbo.domain.SpringBootStarterDobboConstants;
+import com.alibaba.boot.dubbo.domain.SpringBootStarterDubboConstants;
 import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.extension.Activate;
@@ -24,8 +24,8 @@ public class ProviderInvokeStaticsFilter extends StaticsFilterHelper {
   public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
     Class<?> anInterface = invoker.getInterface();
     URL url = invoker.getUrl();
-    String group = url.getParameter(SpringBootStarterDobboConstants.GROUP);
-    String version = url.getParameter(SpringBootStarterDobboConstants.VERSION);
+    String group = url.getParameter(SpringBootStarterDubboConstants.GROUP);
+    String version = url.getParameter(SpringBootStarterDubboConstants.VERSION);
     ClassIdBean classIdBean = new ClassIdBean(anInterface, group, version);
     increase(classIdBean, invocation.getMethodName());
     return invoker.invoke(invocation);

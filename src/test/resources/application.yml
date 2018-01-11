@@ -1,0 +1,31 @@
+server:
+  port: 23767
+
+spring:
+  dubbo:
+    application:
+      name: demo-provider
+      logger: slf4j
+      owner: konglingzhen
+      organization: wsd-java
+    zkRegistry:
+      address: zookeeper://registry.zookeeper.me:2181
+    redisRegistry:
+      address: redis://registry.redis.me:6379
+    dubboProtocol:
+      name: dubbo
+      port: 20800
+    restProtocol:
+      name: rest
+      port: ${server.port}
+      contextpath: /services
+      server: servlet
+    monitor:
+      protocol: registry
+    version: 0.0.1
+    group: dev
+
+logging:
+  level:
+    root: info
+

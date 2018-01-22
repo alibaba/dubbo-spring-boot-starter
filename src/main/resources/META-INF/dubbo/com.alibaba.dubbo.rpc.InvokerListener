@@ -1,1 +1,1 @@
-dubbosubscribe=com.alibaba.boot.dubbo.listener.ConsumerSubscribeListener
+dubbosubscribe=com.alibaba.dubbo.spring.boot.listener.ConsumerSubscribeListener

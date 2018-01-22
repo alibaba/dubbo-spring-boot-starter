@@ -1,2 +1,2 @@
-dubboconsumerstatics=com.alibaba.boot.dubbo.listener.ConsumerInvokeStaticsFilter
-dubboproviderstatics=com.alibaba.boot.dubbo.listener.ProviderInvokeStaticsFilter
+dubboconsumerstatics=com.alibaba.dubbo.spring.boot.listener.ConsumerInvokeStaticsFilter
+dubboproviderstatics=com.alibaba.dubbo.spring.boot.listener.ProviderInvokeStaticsFilter

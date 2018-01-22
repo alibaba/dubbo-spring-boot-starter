@@ -1,1 +1,1 @@
-provides: spring-boot-starter-dubbo
+provides: dubbo-spring-boot-starter

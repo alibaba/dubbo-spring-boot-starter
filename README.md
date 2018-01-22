@@ -1,9 +1,9 @@
-spring-boot-starter-dubbo
+dubbo-spring-boot-starter
 ===================================
 
-[中文版文档](https://github.com/alibaba/spring-boot-starter-dubbo/blob/master/README_zh.md)
+[中文版文档](https://github.com/alibaba/dubbo-spring-boot-starter/blob/master/README_zh.md)
 
-Spring Boot with dubbo support. Dubbo is an RPC framework.
+Dubbo Spring Boot Starter.
 
 Support jdk version 1.6 or 1.6+
 
@@ -15,15 +15,15 @@ Support jdk version 1.6 or 1.6+
 
 ```xml
     <dependency>
-        <groupId>com.alibaba</groupId>
-        <artifactId>spring-boot-starter-dubbo</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <groupId>com.alibaba.spring.boot</groupId>
+        <artifactId>dubbo-spring-boot-starter</artifactId>
+        <version>1.0.0</version>
     </dependency>
 ```
 * add dubbo configuration in application.properties, demo:
 
 ```properties
-spring.dubbo.appname=spring-boot-starter-dubbo-provider-test
+spring.dubbo.appname=dubbo-spring-boot-starter-provider-test
 spring.dubbo.registry=multicast://224.0.0.0:1111
 spring.dubbo.protocol=dubbo
 ```
@@ -56,16 +56,16 @@ public class HelloServiceImpl implements IHelloService {
 
 ```xml
     <dependency>
-        <groupId>com.alibaba</groupId>
-        <artifactId>spring-boot-starter-dubbo</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <groupId>com.alibaba.spring.boot</groupId>
+        <artifactId>dubbo-spring-boot-starter</artifactId>
+        <version>1.0.0</version>
     </dependency>
 ```
 
 * add dubbo configuration in application.properties, demo:
 
 ```properties
-spring.dubbo.appname=spring-boot-starter-dubbo-consumer-test
+spring.dubbo.appname=dubbo-spring-boot-starter-consumer-test
 spring.dubbo.registry=multicast://224.0.0.0:1111
 spring.dubbo.protocol=dubbo
 ```
@@ -80,12 +80,12 @@ public class DubboConsumerLauncher {
 }
 ```
 
-* injection interface by the `@DubboConsumer` annotation.
+* injection interface by the `@Reference` annotation.
 
 ```java
 @Component
 public class HelloConsumer {
-  @DubboConsumer
+  @Reference
   private IHelloService iHelloService;
 
 }
@@ -95,4 +95,3 @@ public class HelloConsumer {
 
 * dubbo: http://dubbo.io/
 * spring-boot: http://projects.spring.io/spring-boot/
-* spring-boot-starter-dubbo: https://github.com/linux-china/spring-boot-dubbo

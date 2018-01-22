@@ -2,32 +2,24 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.alibaba</groupId>
-	<artifactId>spring-boot-starter-dubbo</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<groupId>com.alibaba.spring.boot</groupId>
+	<artifactId>dubbo-spring-boot-starter</artifactId>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>spring-boot-starter-dubbo</name>
-	<url>https://github.com/xionghuiCoder/spring-boot-starter-dubbo</url>
+	<name>dubbo-spring-boot-starter</name>
+	<description>Dubbo Spring Boot Starter</description>
+	<url>https://github.com/alibaba/dubbo-spring-boot-starter</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.6</java.version>
-		<dubbo.version>2.5.3</dubbo.version>
-		<spring-boot-dependencies.version>1.3.5.RELEASE</spring-boot-dependencies.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>dubbo</artifactId>
-			<version>${dubbo.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring</artifactId>
-				</exclusion>
-			</exclusions>
+			<version>2.6.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -55,7 +47,7 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring-boot-dependencies.version}</version>
+				<version>1.5.9.RELEASE</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -67,39 +59,139 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
+				<version>3.7.0</version>
 				<configuration>
-					<encoding>${project.build.sourceEncoding}</encoding>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-					<showWarnings>true</showWarnings>
+					<encoding>UTF-8</encoding>
+					<source>1.6</source>
+					<target>1.6</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.20.1</version>
+				<configuration>
+					<includes>
+						<include>**/testcase/**/*.java</include>
+					</includes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<skip>false</skip>
+					<show>public</show>
+					<charset>UTF-8</charset>
+					<encoding>UTF-8</encoding>
+					<docencoding>UTF-8</docencoding>
+					<links>
+						<link>http://docs.oracle.com/javase/6/docs/api</link>
+					</links>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.6</version>
+				<configuration>
+					<skip>false</skip>
+				</configuration>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
 
 	<scm>
-		<connection>scm:git:git@github.com:xionghuiCoder/spring-boot-starter-dubbo.git</connection>
-		<developerConnection>scm:git:git@github.com:xionghuiCoder/spring-boot-starter-dubbo.git</developerConnection>
-		<url>https://github.com/xionghuiCoder/spring-boot-starter-dubbo</url>
+		<connection>scm:git:git@github.com:alibaba/dubbo-spring-boot-starter.git</connection>
+		<developerConnection>scm:git:git@github.com:alibaba/dubbo-spring-boot-starter.git</developerConnection>
+		<url>https://github.com/alibaba/dubbo-spring-boot-starter.git</url>
 	</scm>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+	</licenses>
 
 	<developers>
 		<developer>
-			<id>jackxiong</id>
-			<name>熊辉</name>
-			<email>xionghui.xh@alibaba-inc.com</email>
-			<roles>
-				<role>developer</role>
-			</roles>
+			<id>xionghui</id>
+			<name>xionghui</name>
+			<email>xionghui_coder@163.com</email>
 		</developer>
 		<developer>
-			<id>Tom</id>
-			<name>孙忠英</name>
-			<email>zhongying.sun@alibaba-inc.com</email>
-			<roles>
-				<role>developer</role>
-			</roles>
+			<id>zhangchundi</id>
+			<name>张春嫡</name>
+			<email>598959830@qq.com</email>
+		</developer>
+		<developer>
+			<id>wufuxing</id>
+			<name>wufuxing</name>
+			<email>1061076658@qq.com</email>
+		</developer>
+		<developer>
+			<id>snakefor100</id>
+			<name>牛俊龙</name>
+			<email>540973185@qq.com</email>
+		</developer>
+		<developer>
+			<id>libin8537</id>
+			<name>李斌</name>
+			<email>libin8537@qq.com</email>
+		</developer>
+		<developer>
+			<id>edwin1215</id>
+			<name>曹峻铭</name>
+			<email>supercjm1215@163.com</email>
 		</developer>
 	</developers>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<name>Sonatype Nexus Snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<name>Nexus Release Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
 </project>

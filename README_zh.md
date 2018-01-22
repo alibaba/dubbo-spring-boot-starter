@@ -1,30 +1,30 @@
-spring-boot-starter-dubbo
+dubbo-spring-boot-starter
 ===================================
 
-[English](https://github.com/alibaba/spring-boot-starter-dubbo/blob/master/README.md)
+[English](https://github.com/alibaba/dubbo-spring-boot-starter/blob/master/README.md)
 
-Spring Boot with dubbo support. dubbo是一个RPC框架。 
+Dubbo Spring Boot Starter。 
 
 支持jdk版本为1.6或者1.6+
 
 （在修改源码前，请导入googlestyle-java.xml以保证一致的代码格式）
 
 ### 如何发布dubbo服务
-spring-boot-starter-dubb目前没有发布release计划，需要clone下来传到私服使用
+
 * 添加依赖:
 
 ```xml
     <dependency>
-        <groupId>com.alibaba</groupId>
-        <artifactId>spring-boot-starter-dubbo</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <groupId>com.alibaba.spring.boot</groupId>
+        <artifactId>dubbo-spring-boot-starter</artifactId>
+        <version>1.0.0</version>
     </dependency>
 ```
 
 * 在application.properties添加dubbo的相关配置信息,样例配置如下:
 
 ```properties
-spring.dubbo.appname=spring-boot-starter-dubbo-provider-test
+spring.dubbo.appname=dubbo-spring-boot-starter-provider-test
 spring.dubbo.registry=multicast://224.0.0.0:1111
 spring.dubbo.protocol=dubbo
 ```
@@ -57,16 +57,16 @@ public class HelloServiceImpl implements IHelloService {
 
 ```xml
     <dependency>
-        <groupId>com.alibaba</groupId>
-        <artifactId>spring-boot-starter-dubbo</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <groupId>com.alibaba.spring.boot</groupId>
+        <artifactId>dubbo-spring-boot-starter</artifactId>
+        <version>1.0.0</version>
     </dependency>
 ```
 
 * 在application.properties添加dubbo的相关配置信息,样例配置如下:
 
 ```properties
-spring.dubbo.appname=spring-boot-starter-dubbo-consumer-test
+spring.dubbo.appname=dubbo-spring-boot-starter-consumer-test
 spring.dubbo.registry=multicast://224.0.0.0:1111
 spring.dubbo.protocol=dubbo
 ```
@@ -81,13 +81,14 @@ public class DubboConsumerLauncher {
 }
 ```
 
-* 通过`@DubboConsumer`注入需要使用的interface.
+* 通过`@Reference`注入需要使用的interface.
 
 ```java
 @Component
 public class HelloConsumer {
-  @DubboConsumer
+  @Reference
   private IHelloService iHelloService;
+  
 }
 ```
 
@@ -95,4 +96,3 @@ public class HelloConsumer {
 
 * dubbo 介绍: http://dubbo.io/
 * spring-boot 介绍: http://projects.spring.io/spring-boot/
-* spring-boot-starter-dubbo 参考: https://github.com/linux-china/spring-boot-dubbo

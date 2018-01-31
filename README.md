@@ -47,7 +47,7 @@ public class HelloServiceImpl implements IHelloService {
 }
 ```
 
-* start Spring Boot.
+* Start Spring Boot.
 
 
 ### How to consume Dubbo

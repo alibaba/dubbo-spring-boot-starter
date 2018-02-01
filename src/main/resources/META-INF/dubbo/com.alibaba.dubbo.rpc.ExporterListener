@@ -1,1 +1,0 @@
-dubboexport=com.alibaba.dubbo.spring.boot.listener.ProviderExportListener

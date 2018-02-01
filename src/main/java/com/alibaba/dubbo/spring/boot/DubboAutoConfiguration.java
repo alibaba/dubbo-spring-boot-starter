@@ -9,9 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
-import com.alibaba.dubbo.spring.boot.endpoint.DubboEndpoint;
 import com.alibaba.dubbo.spring.boot.health.DubboHealthIndicator;
-import com.alibaba.dubbo.spring.boot.metrics.DubboMetrics;
 
 /**
  * Dubbo common configuration
@@ -55,15 +53,5 @@ public class DubboAutoConfiguration {
   @Bean
   public DubboHealthIndicator dubboHealthIndicator() {
     return new DubboHealthIndicator();
-  }
-
-  @Bean
-  public DubboEndpoint dubboEndpoint() {
-    return new DubboEndpoint();
-  }
-
-  @Bean
-  public DubboMetrics dubboConsumerMetrics() {
-    return new DubboMetrics();
   }
 }

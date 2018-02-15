@@ -15,6 +15,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
 
 import com.alibaba.dubbo.config.ApplicationConfig;
+import com.alibaba.dubbo.config.MonitorConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -45,8 +46,10 @@ public class DubboProviderAutoConfiguration {
 
   @Autowired
   private ProtocolConfig protocolConfig;
-  @Autowired
+  @Autowired(required = false)
   private RegistryConfig registryConfig;
+  @Autowired(required = false)
+  private MonitorConfig monitorConfig;
 
   @PostConstruct
   public void init() throws Exception {
@@ -92,6 +95,9 @@ public class DubboProviderAutoConfiguration {
       serviceConfig.setRegistries(registrieList);
     } else {
       serviceConfig.setRegistry(this.registryConfig);
+    }
+    if (this.monitorConfig != null) {
+      serviceConfig.setMonitor(this.monitorConfig);
     }
     serviceConfig.setProtocol(this.protocolConfig);
     serviceConfig.setApplicationContext(this.applicationContext);

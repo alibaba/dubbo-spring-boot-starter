@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.alibaba.dubbo.config.ApplicationConfig;
+import com.alibaba.dubbo.config.MonitorConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -53,6 +54,8 @@ public class DubboConsumerAutoConfiguration {
   private ApplicationConfig applicationConfig;
   @Autowired(required = false)
   private RegistryConfig registryConfig;
+  @Autowired(required = false)
+  private MonitorConfig monitorConfig;
 
   public static Object getDubboReference(ClassIdBean classIdBean) {
     return DUBBO_REFERENCES_MAP.get(classIdBean);
@@ -155,6 +158,9 @@ public class DubboConsumerAutoConfiguration {
       referenceBean.setRegistries(registrieList);
     } else {
       referenceBean.setRegistry(DubboConsumerAutoConfiguration.this.registryConfig);
+    }
+    if (this.monitorConfig != null) {
+      referenceBean.setMonitor(this.monitorConfig);
     }
     referenceBean.setApplicationContext(DubboConsumerAutoConfiguration.this.applicationContext);
     referenceBean.setApplication(DubboConsumerAutoConfiguration.this.applicationConfig);

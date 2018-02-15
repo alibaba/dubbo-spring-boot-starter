@@ -11,7 +11,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(prefix = "spring.dubbo")
 public class DubboProperties {
-
   /**
    * dubbo application name
    */
@@ -21,6 +20,11 @@ public class DubboProperties {
    * dubbo registry address
    */
   private String registry;
+
+  /**
+   * dubbo monitor address
+   */
+  private String monitor;
 
   /**
    * communication protocol, default is dubbo
@@ -66,6 +70,14 @@ public class DubboProperties {
     this.registry = registry;
   }
 
+  public String getMonitor() {
+    return this.monitor;
+  }
+
+  public void setMonitor(String monitor) {
+    this.monitor = monitor;
+  }
+
   public String getProtocol() {
     return this.protocol;
   }
@@ -108,8 +120,8 @@ public class DubboProperties {
 
   @Override
   public String toString() {
-    return "DubboProperties [appname=" + this.appname + ", registry=" + this.registry
-        + ", protocol=" + this.protocol + ", port=" + this.port + ", threads=" + this.threads
-        + ", version=" + this.version + ", group=" + this.group + "]";
+    return "DubboProperties [appname=" + this.appname + ", registry=" + this.registry + ", monitor="
+        + this.monitor + ", protocol=" + this.protocol + ", port=" + this.port + ", threads="
+        + this.threads + ", version=" + this.version + ", group=" + this.group + "]";
   }
 }

@@ -68,9 +68,11 @@ public class DubboConsumerAutoConfiguration {
       @Override
       public Object postProcessBeforeInitialization(Object bean, String beanName)
           throws BeansException {
-        Class<?> objClz = bean.getClass();
+        Class<?> objClz;
         if (AopUtils.isAopProxy(bean)) {
           objClz = AopUtils.getTargetClass(bean);
+        } else {
+          objClz = bean.getClass();
         }
 
         try {

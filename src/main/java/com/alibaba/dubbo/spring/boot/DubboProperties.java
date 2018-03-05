@@ -17,6 +17,11 @@ public class DubboProperties {
   private String appname;
 
   /**
+   * dubbo application server
+   */
+  private boolean server;
+
+  /**
    * dubbo registry address
    */
   private String registry;
@@ -60,6 +65,14 @@ public class DubboProperties {
 
   public void setAppname(String appname) {
     this.appname = appname;
+  }
+
+  public boolean getServer() {
+    return this.server;
+  }
+
+  public void setServer(boolean server) {
+    this.server = server;
   }
 
   public String getRegistry() {

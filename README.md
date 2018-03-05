@@ -42,6 +42,7 @@ public class DubboProviderLauncher {
 
 ```java
 @Service(interfaceClass = IHelloService.class)
+@Component
 public class HelloServiceImpl implements IHelloService {
   //...
 }

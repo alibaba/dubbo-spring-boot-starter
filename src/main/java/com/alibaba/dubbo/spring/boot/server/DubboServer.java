@@ -1,5 +1,7 @@
 package com.alibaba.dubbo.spring.boot.server;
 
+import org.springframework.beans.factory.DisposableBean;
+
 /**
  * Hold the dubbo server
  *
@@ -7,7 +9,7 @@ package com.alibaba.dubbo.spring.boot.server;
  * @version 1.0.0
  * @since 1.0.0
  */
-public final class DubboServer {
+public final class DubboServer implements DisposableBean {
   private volatile boolean stopAwait = false;
 
   public void await() {
@@ -22,5 +24,10 @@ public final class DubboServer {
 
   public void stopAwait() {
     this.stopAwait = true;
+  }
+
+  @Override
+  public void destroy() throws Exception {
+    this.stopAwait();
   }
 }

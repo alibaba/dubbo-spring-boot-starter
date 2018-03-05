@@ -14,7 +14,7 @@ import com.alibaba.dubbo.config.MonitorConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.spring.boot.health.DubboHealthIndicator;
-import com.alibaba.dubbo.spring.boot.thread.DubboServer;
+import com.alibaba.dubbo.spring.boot.server.DubboServer;
 
 /**
  * Dubbo common configuration

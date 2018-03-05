@@ -1,4 +1,4 @@
-package com.alibaba.dubbo.spring.boot.thread;
+package com.alibaba.dubbo.spring.boot.server;
 
 /**
  * Hold the dubbo server

@@ -3,7 +3,7 @@ dubbo-spring-boot-starter
 
 [English](https://github.com/alibaba/dubbo-spring-boot-starter/blob/master/README.md)
 
-Dubbo Spring Boot Starter。 
+Dubbo Spring Boot Starter。也可以关注dubbo官方的[dubbo-spring-boot-project](https://github.com/dubbo/dubbo-spring-boot-project)
 
 支持jdk版本为1.6或者1.6+
 

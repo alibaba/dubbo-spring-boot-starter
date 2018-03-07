@@ -27,7 +27,7 @@ spring.dubbo.appname=dubbo-spring-boot-starter-provider-test
 spring.dubbo.registry=multicast://224.0.0.0:1111
 spring.dubbo.protocol=dubbo
 ```
-* more protocol config：add dubbo configuration in application.properties, demo:
+* more protocol config(version >=1.0.2)：add dubbo configuration in application.properties, demo:
 
 ```properties
 spring.dubbo.appname = UMP_Service

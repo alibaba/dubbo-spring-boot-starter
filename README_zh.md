@@ -29,7 +29,7 @@ spring.dubbo.registry=multicast://224.0.0.0:1111
 spring.dubbo.protocol=dubbo
 ```
 
-* 多协议配置：application.properties添加dubbo的相关配置信息,样例配置如下:
+* 多协议配置(version >=1.0.2)：application.properties添加dubbo的相关配置信息,样例配置如下:
 
 ```properties
 spring.dubbo.appname = UMP_Service

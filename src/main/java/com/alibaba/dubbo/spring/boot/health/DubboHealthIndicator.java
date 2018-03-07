@@ -10,7 +10,7 @@ import com.alibaba.dubbo.spring.boot.domain.ClassIdBean;
 import com.alibaba.dubbo.spring.boot.listener.ConsumerSubscribeListener;
 
 /**
- * dubbo health indicator
+ * Dubbo health indicator
  *
  * @author xionghui
  * @version 1.0.0

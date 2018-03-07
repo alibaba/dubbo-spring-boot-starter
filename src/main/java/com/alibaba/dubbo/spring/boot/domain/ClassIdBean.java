@@ -3,9 +3,11 @@ package com.alibaba.dubbo.spring.boot.domain;
 import java.io.Serializable;
 
 /**
- * 标示唯一一个class
+ * Unique class.
  *
  * @author xionghui
+ * @see #equals(Object)
+ * @see #hashCode()
  * @version 1.0.0
  * @since 1.0.0
  */

@@ -21,7 +21,7 @@ Dubbo Spring Boot Starter。
     </dependency>
 ```
 
-* 单协议配置：在application.properties添加dubbo的相关配置信息,样例配置如下:
+* 单协议配置，在application.properties添加dubbo的相关配置信息，样例配置如下:
 
 ```properties
 spring.dubbo.appname=dubbo-spring-boot-starter-provider-test
@@ -29,25 +29,22 @@ spring.dubbo.registry=multicast://224.0.0.0:1111
 spring.dubbo.protocol=dubbo
 ```
 
-* 多协议配置(version >=1.0.2)：application.properties添加dubbo的相关配置信息,样例配置如下:
+* 多协议配置(version>=1.0.2)，application.properties添加dubbo的相关配置信息，样例配置如下:
 
 ```properties
-spring.dubbo.appname = UMP_Service
-spring.dubbo.registry = zookeeper://172.16.20.136:2181?backup=172.16.20.136:2182,172.16.20.136:2183
-spring.dubbo.group = UMP_Service
-##dubbo 协议
+spring.dubbo.appname=dubbo-spring-boot-starter-provider-test
+spring.dubbo.registry=multicast://224.0.0.0:1111
+# dubbo协议
 spring.dubbo.protocols.dubbo.name=dubbo
-spring.dubbo.protocols.dubbo.port=28081
-spring.dubbo.protocols.dubbo.threads=200
-## hessian协议
+spring.dubbo.protocols.dubbo.port=20801
+# hessian协议
 spring.dubbo.protocols.hessian.name=hessian
-spring.dubbo.protocols.hessian.port=28082
-spring.dubbo.protocols.hessian.threads=100
+spring.dubbo.protocols.hessian.port=20802
 ```
 
-注：这个配置只针对服务提供端，消费端不用指定协议，它自己会根据服务端的地址信息去解析协议
+注：这个配置只针对服务提供端，消费端不用指定协议，它自己会根据服务端的地址信息和@Reference注解去解析协议
 
-* 接下来在Spring Boot Application的上添加`@EnableDubboConfiguration`, 表示要开启dubbo功能. (dubbo provider服务可以使用或者不使用web容器)
+* 接下来在Spring Boot Application的上添加`@EnableDubboConfiguration`，表示要开启dubbo功能. (dubbo provider服务可以使用或者不使用web容器)
 
 ```java
 @SpringBootApplication
@@ -57,7 +54,7 @@ public class DubboProviderLauncher {
 }
 ```
 
-* 编写你的dubbo服务,只需要添加要发布的服务实现上添加`@Service`（import com.alibaba.dubbo.config.annotation.Service）注解 ,其中interfaceClass是要发布服务的接口.
+* 编写你的dubbo服务，只需要添加要发布的服务实现上添加`@Service`（import com.alibaba.dubbo.config.annotation.Service）注解，其中interfaceClass是要发布服务的接口.
 
 ```java
 @Service(interfaceClass = IHelloService.class)
@@ -67,7 +64,7 @@ public class HelloServiceImpl implements IHelloService {
 }
 ```
 
-* 启动你的Spring Boot应用,观察控制台,可以看到dubbo启动相关信息.
+* 启动你的Spring Boot应用，观察控制台，可以看到dubbo启动相关信息.
 
 
 ### 如何消费Dubbo服务
@@ -82,7 +79,7 @@ public class HelloServiceImpl implements IHelloService {
     </dependency>
 ```
 
-* 在application.properties添加dubbo的相关配置信息,样例配置如下:
+* 在application.properties添加dubbo的相关配置信息，样例配置如下:
 
 ```properties
 spring.dubbo.appname=dubbo-spring-boot-starter-consumer-test

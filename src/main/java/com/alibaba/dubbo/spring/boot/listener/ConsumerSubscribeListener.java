@@ -12,7 +12,7 @@ import com.alibaba.dubbo.spring.boot.domain.ClassIdBean;
 import com.alibaba.dubbo.spring.boot.domain.DubboSpringBootStarterConstants;
 
 /**
- * dubbo client invoker listener
+ * Dubbo client invoker listener
  *
  * @author xionghui
  * @version 1.0.0
@@ -20,7 +20,9 @@ import com.alibaba.dubbo.spring.boot.domain.DubboSpringBootStarterConstants;
  */
 @Activate
 public class ConsumerSubscribeListener extends InvokerListenerAdapter {
-  // subscribe interfaces
+  /**
+   * subscribe interfaces
+   */
   public static final Set<ClassIdBean> SUBSCRIBEDINTERFACES_SET =
       new ConcurrentHashSet<ClassIdBean>();
 

@@ -26,6 +26,7 @@ import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
  * DubboProviderAutoConfiguration
  *
  * @author xionghui
+ * @author 韩旺坤
  * @version 1.0.0
  * @since 1.0.0
  */
@@ -43,9 +44,6 @@ public class DubboProviderAutoConfiguration {
 
   @Autowired
   private ApplicationConfig applicationConfig;
-
-  @Autowired
-  private ProtocolConfig protocolConfig;
   @Autowired(required = false)
   private RegistryConfig registryConfig;
   @Autowired(required = false)
@@ -99,34 +97,31 @@ public class DubboProviderAutoConfiguration {
     if (this.monitorConfig != null) {
       serviceConfig.setMonitor(this.monitorConfig);
     }
-    
-    //handler much protocol
-    String[] protocols = service.protocol();
-    if(protocols != null && protocols.length > 0 && !this.properties.getProtocols().isEmpty())
-    {
-    	   List<ProtocolConfig> pcs = new ArrayList<ProtocolConfig>();
-    	   for(String protocol:protocols)
-    	   {
-    		   if(!this.properties.getProtocols().containsKey(protocol))
-    		   {
-    			   throw new RuntimeException("beanName="+beanName+",protocol="+protocol+" not found in protocols");
-    		   }
-    		   else
-    		   {
-    			   pcs.add(this.properties.getProtocols().get(protocol));
-    		   }
-    	   }
-    	   serviceConfig.setProtocols(pcs);
-    }
-    else if(!this.properties.getProtocols().isEmpty())
-    {
-    	   List<ProtocolConfig> pcs = new ArrayList<ProtocolConfig>();
-    	   pcs.addAll(this.properties.getProtocols().values());
-    	   serviceConfig.setProtocols(pcs);
-    }
-    else
-    {
-        serviceConfig.setProtocol(this.protocolConfig);
+
+    if (this.properties.getProtocols().isEmpty()) {
+      ProtocolConfig protocolConfig = new ProtocolConfig();
+      protocolConfig.setName(this.properties.getProtocol());
+      protocolConfig.setPort(this.properties.getPort());
+      protocolConfig.setThreads(this.properties.getThreads());
+      serviceConfig.setProtocol(protocolConfig);
+    } else {
+      // handle multi protocols
+      List<ProtocolConfig> protocolConfigList = new ArrayList<ProtocolConfig>();
+      String[] protocols = service.protocol();
+      if (protocols != null && protocols.length > 0) {
+        Map<String, ProtocolConfig> protocolMap = this.properties.getProtocols();
+        for (String protocol : protocols) {
+          ProtocolConfig protocolConfig = protocolMap.get(protocol);
+          if (protocolConfig == null) {
+            throw new NullPointerException(
+                "beanName=" + beanName + ", protocol=" + protocol + " not found in protocols");
+          }
+          protocolConfigList.add(protocolConfig);
+        }
+      } else {
+        protocolConfigList.addAll(this.properties.getProtocols().values());
+      }
+      serviceConfig.setProtocols(protocolConfigList);
     }
 
     serviceConfig.setApplicationContext(this.applicationContext);

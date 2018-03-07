@@ -8,77 +8,71 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import com.alibaba.dubbo.config.ProtocolConfig;
 
 /**
- * dubbo properties
+ * Dubbo properties
  *
  * @author xionghui
+ * @author 韩旺坤
  * @version 1.0.0
  * @since 1.0.0
  */
 @ConfigurationProperties(prefix = "spring.dubbo")
 public class DubboProperties {
   /**
-   * dubbo application name
+   * Dubbo application name
    */
   private String appname;
 
   /**
-   * dubbo application server
+   * Dubbo application server
    */
   private boolean server;
 
   /**
-   * dubbo registry address
+   * Dubbo registry address
    */
   private String registry;
 
   /**
-   * dubbo monitor address
+   * Dubbo monitor address
    */
   private String monitor;
 
   /**
-   * communication protocol, default is dubbo
+   * Communication protocol, default is dubbo
    */
   private String protocol = "dubbo";
 
   /**
-   * dubbo listen port, default 20800
+   * Dubbo listen port, default 20800
    */
   private int port = 20800;
 
   /**
-   * dubbo thread count, default 200
+   * Dubbo thread count, default 200
    */
   private int threads = 200;
 
   /**
-   * dubbo version, may override by {@link com.alibaba.dubbo.config.annotation.Service#version
+   * Dubbo version, may override by {@link com.alibaba.dubbo.config.annotation.Service#version
    * Service.version} or {@link com.alibaba.dubbo.config.annotation.Reference#version
    * Reference.version}
    */
   private String version = "";
 
   /**
-   * dubbo group, may override by {@link com.alibaba.dubbo.config.annotation.Service#group
+   * Dubbo group, may override by {@link com.alibaba.dubbo.config.annotation.Service#group
    * Service.group} or {@link com.alibaba.dubbo.config.annotation.Reference#group Reference.group}
    */
   private String group = "";
 
   /**
-   * dubbo protocols, use for much protocols
+   * Dubbo protocols, used for multi protocols
+   * 
+   * @since 1.0.2
    */
-  private Map<String,ProtocolConfig> protocols = new HashMap<String,ProtocolConfig>();
-  
-  
-  public Map<String, ProtocolConfig> getProtocols() {
-	return protocols;
-}
+  private Map<String, ProtocolConfig> protocols = new HashMap<String, ProtocolConfig>();
 
-public void setProtocols(Map<String, ProtocolConfig> protocols) {
-	this.protocols = protocols;
-}
-
-public String getAppname() {
+  public String getAppname() {
     return this.appname;
   }
 
@@ -150,10 +144,19 @@ public String getAppname() {
     this.group = group;
   }
 
+  public Map<String, ProtocolConfig> getProtocols() {
+    return this.protocols;
+  }
+
+  public void setProtocols(Map<String, ProtocolConfig> protocols) {
+    this.protocols = protocols;
+  }
+
   @Override
   public String toString() {
-    return "DubboProperties [appname=" + this.appname + ", registry=" + this.registry + ", monitor="
-        + this.monitor + ", protocol=" + this.protocol + ", port=" + this.port + ", threads="
-        + this.threads + ", version=" + this.version + ", group=" + this.group + "]";
+    return "DubboProperties [appname=" + this.appname + ", server=" + this.server + ", registry="
+        + this.registry + ", monitor=" + this.monitor + ", protocol=" + this.protocol + ", port="
+        + this.port + ", threads=" + this.threads + ", version=" + this.version + ", group="
+        + this.group + ", protocols=" + this.protocols + "]";
   }
 }

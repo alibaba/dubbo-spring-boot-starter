@@ -6,8 +6,8 @@ import org.springframework.beans.factory.DisposableBean;
  * Hold the dubbo server
  *
  * @author xionghui
- * @version 1.0.0
- * @since 1.0.0
+ * @version 1.0.2
+ * @since 1.0.2
  */
 public final class DubboServer implements DisposableBean {
   private volatile boolean stopAwait = false;

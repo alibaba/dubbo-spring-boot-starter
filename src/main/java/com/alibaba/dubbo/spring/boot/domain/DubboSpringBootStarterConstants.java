@@ -1,7 +1,7 @@
 package com.alibaba.dubbo.spring.boot.domain;
 
 /**
- * 常量定义
+ * Constants defined.
  *
  * @author xionghui
  * @version 1.0.0

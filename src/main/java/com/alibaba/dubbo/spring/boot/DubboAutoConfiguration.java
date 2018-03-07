@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 
 import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.MonitorConfig;
-import com.alibaba.dubbo.config.ProtocolConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.spring.boot.health.DubboHealthIndicator;
 import com.alibaba.dubbo.spring.boot.server.DubboServer;
@@ -37,6 +36,11 @@ public class DubboAutoConfiguration {
     return appConfig;
   }
 
+  /**
+   * Start a non-daemon thread
+   *
+   * @since 1.0.2
+   */
   @Bean
   @ConditionalOnMissingBean
   @ConditionalOnProperty(prefix = "spring.dubbo", name = "server", havingValue = "true")
@@ -62,20 +66,10 @@ public class DubboAutoConfiguration {
 
     return dubboServer;
   }
-  
-  @Bean
-  @ConditionalOnMissingBean
-  public ProtocolConfig dubboProtocolConfig() {
-    ProtocolConfig protocolConfig = new ProtocolConfig();
-    protocolConfig.setName(this.properties.getProtocol());
-    protocolConfig.setPort(this.properties.getPort());
-    protocolConfig.setThreads(this.properties.getThreads());
-    return protocolConfig;
-  }
 
   @Bean
   @ConditionalOnMissingBean
-//  @ConditionalOnProperty(prefix = "spring.dubbo", name = "registry")
+  @ConditionalOnProperty(prefix = "spring.dubbo", name = "registry")
   public RegistryConfig dubboRegistryConfig() {
     RegistryConfig registryConfig = new RegistryConfig();
     registryConfig.setAddress(this.properties.getRegistry());

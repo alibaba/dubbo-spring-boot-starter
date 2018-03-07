@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 
 import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.MonitorConfig;
@@ -30,9 +31,13 @@ public class DubboAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  public ApplicationConfig dubboApplicationConfig() {
+  public ApplicationConfig dubboApplicationConfig(Environment environment) {
+    String appname = this.properties.getAppname();
+    if (appname == null) {
+      appname = environment.getProperty("spring.application.name");
+    }
     ApplicationConfig appConfig = new ApplicationConfig();
-    appConfig.setName(this.properties.getAppname());
+    appConfig.setName(appname);
     return appConfig;
   }
 

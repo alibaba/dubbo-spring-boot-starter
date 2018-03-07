@@ -62,7 +62,7 @@ public class DubboAutoConfiguration {
 
     return dubboServer;
   }
-
+  
   @Bean
   @ConditionalOnMissingBean
   public ProtocolConfig dubboProtocolConfig() {
@@ -75,7 +75,7 @@ public class DubboAutoConfiguration {
 
   @Bean
   @ConditionalOnMissingBean
-  @ConditionalOnProperty(prefix = "spring.dubbo", name = "registry")
+//  @ConditionalOnProperty(prefix = "spring.dubbo", name = "registry")
   public RegistryConfig dubboRegistryConfig() {
     RegistryConfig registryConfig = new RegistryConfig();
     registryConfig.setAddress(this.properties.getRegistry());

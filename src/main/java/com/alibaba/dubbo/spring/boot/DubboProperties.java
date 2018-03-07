@@ -1,6 +1,11 @@
 package com.alibaba.dubbo.spring.boot;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import com.alibaba.dubbo.config.ProtocolConfig;
 
 /**
  * dubbo properties
@@ -59,7 +64,21 @@ public class DubboProperties {
    */
   private String group = "";
 
-  public String getAppname() {
+  /**
+   * dubbo protocols, use for much protocols
+   */
+  private Map<String,ProtocolConfig> protocols = new HashMap<String,ProtocolConfig>();
+  
+  
+  public Map<String, ProtocolConfig> getProtocols() {
+	return protocols;
+}
+
+public void setProtocols(Map<String, ProtocolConfig> protocols) {
+	this.protocols = protocols;
+}
+
+public String getAppname() {
     return this.appname;
   }
 

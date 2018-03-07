@@ -99,7 +99,36 @@ public class DubboProviderAutoConfiguration {
     if (this.monitorConfig != null) {
       serviceConfig.setMonitor(this.monitorConfig);
     }
-    serviceConfig.setProtocol(this.protocolConfig);
+    
+    //handler much protocol
+    String[] protocols = service.protocol();
+    if(protocols != null && protocols.length > 0 && !this.properties.getProtocols().isEmpty())
+    {
+    	   List<ProtocolConfig> pcs = new ArrayList<ProtocolConfig>();
+    	   for(String protocol:protocols)
+    	   {
+    		   if(!this.properties.getProtocols().containsKey(protocol))
+    		   {
+    			   throw new RuntimeException("beanName="+beanName+",protocol="+protocol+" not found in protocols");
+    		   }
+    		   else
+    		   {
+    			   pcs.add(this.properties.getProtocols().get(protocol));
+    		   }
+    	   }
+    	   serviceConfig.setProtocols(pcs);
+    }
+    else if(!this.properties.getProtocols().isEmpty())
+    {
+    	   List<ProtocolConfig> pcs = new ArrayList<ProtocolConfig>();
+    	   pcs.addAll(this.properties.getProtocols().values());
+    	   serviceConfig.setProtocols(pcs);
+    }
+    else
+    {
+        serviceConfig.setProtocol(this.protocolConfig);
+    }
+
     serviceConfig.setApplicationContext(this.applicationContext);
     serviceConfig.setApplication(this.applicationConfig);
     serviceConfig.afterPropertiesSet();

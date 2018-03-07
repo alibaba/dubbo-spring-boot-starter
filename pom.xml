@@ -185,6 +185,11 @@
 			<name>郭彦昌</name>
 			<email>yanchang.gyc@gmail.com</email>
 		</developer>
+		<developer>
+			<id>hanwangkun</id>
+			<name>韩旺坤</name>
+			<email>hanwangkun2006@126.com</email>
+		</developer>		
 	</developers>
 
 	<distributionManagement>

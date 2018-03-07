@@ -17,7 +17,7 @@ Support jdk version 1.6 or 1.6+
     <dependency>
         <groupId>com.alibaba.spring.boot</groupId>
         <artifactId>dubbo-spring-boot-starter</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.2</version>
     </dependency>
 ```
 * single protocol config, add dubbo configuration in application.properties, demo:

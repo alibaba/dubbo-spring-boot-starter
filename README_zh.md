@@ -17,7 +17,7 @@ Dubbo Spring Boot Starter。也可以关注dubbo官方的[dubbo-spring-boot-proj
     <dependency>
         <groupId>com.alibaba.spring.boot</groupId>
         <artifactId>dubbo-spring-boot-starter</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.2</version>
     </dependency>
 ```
 

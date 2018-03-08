@@ -45,6 +45,7 @@ public class DubboAutoConfiguration {
    * Start a non-daemon thread
    *
    * @since 1.0.2
+   * @return DubboServer
    */
   @Bean
   @ConditionalOnMissingBean

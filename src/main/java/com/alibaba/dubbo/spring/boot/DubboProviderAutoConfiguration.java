@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.MonitorConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
+import com.alibaba.dubbo.config.ProviderConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.dubbo.config.spring.ServiceBean;
@@ -124,6 +125,10 @@ public class DubboProviderAutoConfiguration {
       serviceConfig.setProtocols(protocolConfigList);
     }
 
+    ProviderConfig providerConfig = this.properties.getProvider();
+    if (providerConfig != null) {
+      serviceConfig.setProvider(providerConfig);
+    }
     serviceConfig.setApplicationContext(this.applicationContext);
     serviceConfig.setApplication(this.applicationConfig);
     serviceConfig.afterPropertiesSet();

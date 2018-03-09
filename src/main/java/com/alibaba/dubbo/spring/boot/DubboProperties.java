@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import com.alibaba.dubbo.config.ConsumerConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
+import com.alibaba.dubbo.config.ProviderConfig;
 
 /**
  * Dubbo properties
@@ -67,10 +69,24 @@ public class DubboProperties {
 
   /**
    * Dubbo protocols, used for multi protocols
-   * 
+   *
    * @since 1.0.2
    */
   private Map<String, ProtocolConfig> protocols = new HashMap<String, ProtocolConfig>();
+
+  /**
+   * Dubbo provider
+   *
+   * @since 1.0.3
+   */
+  private ProviderConfig provider;
+
+  /**
+   * Dubbo consumer
+   *
+   * @since 1.0.3
+   */
+  private ConsumerConfig consumer;
 
   public String getAppname() {
     return this.appname;
@@ -152,11 +168,28 @@ public class DubboProperties {
     this.protocols = protocols;
   }
 
+  public ProviderConfig getProvider() {
+    return this.provider;
+  }
+
+  public void setProvider(ProviderConfig provider) {
+    this.provider = provider;
+  }
+
+  public ConsumerConfig getConsumer() {
+    return this.consumer;
+  }
+
+  public void setConsumer(ConsumerConfig consumer) {
+    this.consumer = consumer;
+  }
+
   @Override
   public String toString() {
     return "DubboProperties [appname=" + this.appname + ", server=" + this.server + ", registry="
         + this.registry + ", monitor=" + this.monitor + ", protocol=" + this.protocol + ", port="
         + this.port + ", threads=" + this.threads + ", version=" + this.version + ", group="
-        + this.group + ", protocols=" + this.protocols + "]";
+        + this.group + ", protocols=" + this.protocols + ", provider=" + this.provider
+        + ", consumer=" + this.consumer + "]";
   }
 }

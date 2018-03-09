@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.alibaba.dubbo.config.ApplicationConfig;
+import com.alibaba.dubbo.config.ConsumerConfig;
 import com.alibaba.dubbo.config.MonitorConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -163,6 +164,10 @@ public class DubboConsumerAutoConfiguration {
     }
     if (this.monitorConfig != null) {
       referenceBean.setMonitor(this.monitorConfig);
+    }
+    ConsumerConfig consumerConfig = this.properties.getConsumer();
+    if (consumerConfig != null) {
+      referenceBean.setConsumer(consumerConfig);
     }
     referenceBean.setApplicationContext(DubboConsumerAutoConfiguration.this.applicationContext);
     referenceBean.setApplication(DubboConsumerAutoConfiguration.this.applicationConfig);

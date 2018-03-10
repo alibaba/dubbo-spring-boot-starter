@@ -1,4 +1,4 @@
-package com.alibaba.dubbo.spring.boot.configuration;
+package com.alibaba.dubbo.spring.boot.domain;
 
 import lombok.experimental.UtilityClass;
 

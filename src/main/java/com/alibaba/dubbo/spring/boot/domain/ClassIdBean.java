@@ -1,40 +1,29 @@
 package com.alibaba.dubbo.spring.boot.domain;
 
 import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
  * Unique class.
  *
  * @author xionghui
+ * @version 1.0.0
  * @see #equals(Object)
  * @see #hashCode()
- * @version 1.0.0
  * @since 1.0.0
  */
+@AllArgsConstructor
 public class ClassIdBean implements Serializable {
+
   private static final long serialVersionUID = -6632632504039058978L;
 
+  @Getter
   private final Class<?> interfaceClass;
+  @Getter
   private final String group;
+  @Getter
   private final String version;
-
-  public ClassIdBean(Class<?> interfaceClass, String group, String version) {
-    this.interfaceClass = interfaceClass;
-    this.group = group;
-    this.version = version;
-  }
-
-  public Class<?> getInterfaceClass() {
-    return this.interfaceClass;
-  }
-
-  public String getGroup() {
-    return this.group;
-  }
-
-  public String getVersion() {
-    return this.version;
-  }
 
   @Override
   public boolean equals(Object obj) {

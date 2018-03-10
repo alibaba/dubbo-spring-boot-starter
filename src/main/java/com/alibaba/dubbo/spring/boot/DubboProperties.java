@@ -1,13 +1,12 @@
 package com.alibaba.dubbo.spring.boot;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import com.alibaba.dubbo.config.ConsumerConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
 import com.alibaba.dubbo.config.ProviderConfig;
+import java.util.HashMap;
+import java.util.Map;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * Dubbo properties
@@ -17,8 +16,10 @@ import com.alibaba.dubbo.config.ProviderConfig;
  * @version 1.0.0
  * @since 1.0.0
  */
+@Data
 @ConfigurationProperties(prefix = "spring.dubbo")
 public class DubboProperties {
+
   /**
    * Dubbo application name
    */
@@ -88,101 +89,6 @@ public class DubboProperties {
    */
   private ConsumerConfig consumer;
 
-  public String getAppname() {
-    return this.appname;
-  }
-
-  public void setAppname(String appname) {
-    this.appname = appname;
-  }
-
-  public boolean getServer() {
-    return this.server;
-  }
-
-  public void setServer(boolean server) {
-    this.server = server;
-  }
-
-  public String getRegistry() {
-    return this.registry;
-  }
-
-  public void setRegistry(String registry) {
-    this.registry = registry;
-  }
-
-  public String getMonitor() {
-    return this.monitor;
-  }
-
-  public void setMonitor(String monitor) {
-    this.monitor = monitor;
-  }
-
-  public String getProtocol() {
-    return this.protocol;
-  }
-
-  public void setProtocol(String protocol) {
-    this.protocol = protocol;
-  }
-
-  public int getPort() {
-    return this.port;
-  }
-
-  public void setPort(int port) {
-    this.port = port;
-  }
-
-  public int getThreads() {
-    return this.threads;
-  }
-
-  public void setThreads(int threads) {
-    this.threads = threads;
-  }
-
-  public String getVersion() {
-    return this.version;
-  }
-
-  public void setVersion(String version) {
-    this.version = version;
-  }
-
-  public String getGroup() {
-    return this.group;
-  }
-
-  public void setGroup(String group) {
-    this.group = group;
-  }
-
-  public Map<String, ProtocolConfig> getProtocols() {
-    return this.protocols;
-  }
-
-  public void setProtocols(Map<String, ProtocolConfig> protocols) {
-    this.protocols = protocols;
-  }
-
-  public ProviderConfig getProvider() {
-    return this.provider;
-  }
-
-  public void setProvider(ProviderConfig provider) {
-    this.provider = provider;
-  }
-
-  public ConsumerConfig getConsumer() {
-    return this.consumer;
-  }
-
-  public void setConsumer(ConsumerConfig consumer) {
-    this.consumer = consumer;
-  }
 
   @Override
   public String toString() {

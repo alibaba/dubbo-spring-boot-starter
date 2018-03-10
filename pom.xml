@@ -12,14 +12,29 @@
 	<url>https://github.com/alibaba/dubbo-spring-boot-starter</url>
 
 	<properties>
+		<!-- project -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<default.encoding>UTF-8</default.encoding>
+		<java.version>1.6</java.version>
+		
+		<!-- dependencies -->
+		<spring-boot.version>1.5.10.RELEASE</spring-boot.version>
+		<dubbo.version>2.6.0</dubbo.version>
+		
+		<!-- plugins -->
+		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+		<maven-surefire-plugin.version>2.20.1</maven-surefire-plugin.version>
+		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+		<maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
+		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+		
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>dubbo</artifactId>
-			<version>2.6.0</version>
+			<version>${dubbo.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -45,6 +60,11 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -52,7 +72,7 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
-				<version>1.5.10.RELEASE</version>
+				<version>${spring-boot.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -64,17 +84,17 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.7.0</version>
+				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
-					<encoding>UTF-8</encoding>
-					<source>1.6</source>
-					<target>1.6</target>
+					<encoding>${default.encoding}</encoding>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.20.1</version>
+				<version>${maven-surefire-plugin.version}</version>
 				<configuration>
 					<includes>
 						<include>**/testcase/**/*.java</include>
@@ -84,7 +104,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>3.0.1</version>
+				<version>${maven-source-plugin.version}</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -100,7 +120,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>${maven-javadoc-plugin.version}</version>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -112,9 +132,9 @@
 				<configuration>
 					<skip>false</skip>
 					<show>public</show>
-					<charset>UTF-8</charset>
-					<encoding>UTF-8</encoding>
-					<docencoding>UTF-8</docencoding>
+					<charset>${default.encoding}</charset>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<docencoding>${project.build.sourceEncoding}</docencoding>
 					<links>
 						<link>http://docs.oracle.com/javase/6/docs/api</link>
 					</links>
@@ -122,7 +142,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.6</version>
+				<version>${maven-gpg-plugin.version}</version>
 				<configuration>
 					<skip>false</skip>
 				</configuration>
@@ -189,6 +209,11 @@
 			<id>hanwangkun</id>
 			<name>韩旺坤</name>
 			<email>hanwangkun2006@126.com</email>
+		</developer>
+		<developer>
+			<id>Ivan97</id>
+			<name>张砚池</name>
+			<email>yangkizhang@gmail.com</email>
 		</developer>
 	</developers>
 

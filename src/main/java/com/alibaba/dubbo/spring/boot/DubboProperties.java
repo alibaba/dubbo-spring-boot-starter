@@ -1,102 +1,105 @@
 package com.alibaba.dubbo.spring.boot;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.ConsumerConfig;
+import com.alibaba.dubbo.config.ModuleConfig;
+import com.alibaba.dubbo.config.MonitorConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
 import com.alibaba.dubbo.config.ProviderConfig;
+import com.alibaba.dubbo.config.RegistryConfig;
 
 /**
  * Dubbo properties
  *
  * @author xionghui
  * @author 韩旺坤
- * @version 1.0.0
+ * @version 2.0.0
  * @since 1.0.0
  */
 @ConfigurationProperties(prefix = "spring.dubbo")
 public class DubboProperties {
   /**
-   * Dubbo application name
-   */
-  private String appname;
-
-  /**
-   * Dubbo application server
+   * Indicates dubbo server
    */
   private boolean server;
 
   /**
-   * Dubbo registry address
+   * {@link ApplicationConfig} property
    */
-  private String registry;
+  private ApplicationConfig application;
 
   /**
-   * Dubbo monitor address
+   * {@link ModuleConfig} property
    */
-  private String monitor;
+  private ModuleConfig module;
 
   /**
-   * Communication protocol, default is dubbo
+   * {@link RegistryConfig} property
    */
-  private String protocol = "dubbo";
+  private RegistryConfig registry;
 
   /**
-   * Dubbo listen port, default 20800
+   * {@link ProtocolConfig} property
    */
-  private int port = 20800;
+  private ProtocolConfig protocol;
 
   /**
-   * Dubbo thread count, default 200
+   * {@link MonitorConfig} property
    */
-  private int threads = 200;
+  private MonitorConfig monitor;
 
   /**
-   * Dubbo version, may override by {@link com.alibaba.dubbo.config.annotation.Service#version
-   * Service.version} or {@link com.alibaba.dubbo.config.annotation.Reference#version
-   * Reference.version}
-   */
-  private String version = "";
-
-  /**
-   * Dubbo group, may override by {@link com.alibaba.dubbo.config.annotation.Service#group
-   * Service.group} or {@link com.alibaba.dubbo.config.annotation.Reference#group Reference.group}
-   */
-  private String group = "";
-
-  /**
-   * Dubbo protocols, used for multi protocols
-   *
-   * @since 1.0.2
-   */
-  private Map<String, ProtocolConfig> protocols = new HashMap<String, ProtocolConfig>();
-
-  /**
-   * Dubbo provider
-   *
-   * @since 1.0.3
+   * {@link ProviderConfig} property
    */
   private ProviderConfig provider;
 
   /**
-   * Dubbo consumer
-   *
-   * @since 1.0.3
+   * {@link ConsumerConfig} property
    */
   private ConsumerConfig consumer;
 
-  public String getAppname() {
-    return this.appname;
-  }
+  /**
+   * Multiple {@link ApplicationConfig} property
+   */
+  private Map<String, ApplicationConfig> applications =
+      new LinkedHashMap<String, ApplicationConfig>();
 
-  public void setAppname(String appname) {
-    this.appname = appname;
-  }
+  /**
+   * Multiple {@link ModuleConfig} property
+   */
+  private Map<String, ModuleConfig> modules = new LinkedHashMap<String, ModuleConfig>();
 
-  public boolean getServer() {
+  /**
+   * Multiple {@link RegistryConfig} property
+   */
+  private Map<String, RegistryConfig> registries = new LinkedHashMap<String, RegistryConfig>();
+
+  /**
+   * Multiple {@link ProtocolConfig} property
+   */
+  private Map<String, ProtocolConfig> protocols = new LinkedHashMap<String, ProtocolConfig>();
+
+  /**
+   * Multiple {@link MonitorConfig} property
+   */
+  private Map<String, MonitorConfig> monitors = new LinkedHashMap<String, MonitorConfig>();
+
+  /**
+   * Multiple {@link ProviderConfig} property
+   */
+  private Map<String, ProviderConfig> providers = new LinkedHashMap<String, ProviderConfig>();
+
+  /**
+   * Multiple {@link ConsumerConfig} property
+   */
+  private Map<String, ConsumerConfig> consumers = new LinkedHashMap<String, ConsumerConfig>();
+
+  public boolean isServer() {
     return this.server;
   }
 
@@ -104,68 +107,44 @@ public class DubboProperties {
     this.server = server;
   }
 
-  public String getRegistry() {
+  public ApplicationConfig getApplication() {
+    return this.application;
+  }
+
+  public void setApplication(ApplicationConfig application) {
+    this.application = application;
+  }
+
+  public ModuleConfig getModule() {
+    return this.module;
+  }
+
+  public void setModule(ModuleConfig module) {
+    this.module = module;
+  }
+
+  public RegistryConfig getRegistry() {
     return this.registry;
   }
 
-  public void setRegistry(String registry) {
+  public void setRegistry(RegistryConfig registry) {
     this.registry = registry;
   }
 
-  public String getMonitor() {
-    return this.monitor;
-  }
-
-  public void setMonitor(String monitor) {
-    this.monitor = monitor;
-  }
-
-  public String getProtocol() {
+  public ProtocolConfig getProtocol() {
     return this.protocol;
   }
 
-  public void setProtocol(String protocol) {
+  public void setProtocol(ProtocolConfig protocol) {
     this.protocol = protocol;
   }
 
-  public int getPort() {
-    return this.port;
+  public MonitorConfig getMonitor() {
+    return this.monitor;
   }
 
-  public void setPort(int port) {
-    this.port = port;
-  }
-
-  public int getThreads() {
-    return this.threads;
-  }
-
-  public void setThreads(int threads) {
-    this.threads = threads;
-  }
-
-  public String getVersion() {
-    return this.version;
-  }
-
-  public void setVersion(String version) {
-    this.version = version;
-  }
-
-  public String getGroup() {
-    return this.group;
-  }
-
-  public void setGroup(String group) {
-    this.group = group;
-  }
-
-  public Map<String, ProtocolConfig> getProtocols() {
-    return this.protocols;
-  }
-
-  public void setProtocols(Map<String, ProtocolConfig> protocols) {
-    this.protocols = protocols;
+  public void setMonitor(MonitorConfig monitor) {
+    this.monitor = monitor;
   }
 
   public ProviderConfig getProvider() {
@@ -184,12 +163,69 @@ public class DubboProperties {
     this.consumer = consumer;
   }
 
+  public Map<String, ApplicationConfig> getApplications() {
+    return this.applications;
+  }
+
+  public void setApplications(Map<String, ApplicationConfig> applications) {
+    this.applications = applications;
+  }
+
+  public Map<String, ModuleConfig> getModules() {
+    return this.modules;
+  }
+
+  public void setModules(Map<String, ModuleConfig> modules) {
+    this.modules = modules;
+  }
+
+  public Map<String, RegistryConfig> getRegistries() {
+    return this.registries;
+  }
+
+  public void setRegistries(Map<String, RegistryConfig> registries) {
+    this.registries = registries;
+  }
+
+  public Map<String, ProtocolConfig> getProtocols() {
+    return this.protocols;
+  }
+
+  public void setProtocols(Map<String, ProtocolConfig> protocols) {
+    this.protocols = protocols;
+  }
+
+  public Map<String, MonitorConfig> getMonitors() {
+    return this.monitors;
+  }
+
+  public void setMonitors(Map<String, MonitorConfig> monitors) {
+    this.monitors = monitors;
+  }
+
+  public Map<String, ProviderConfig> getProviders() {
+    return this.providers;
+  }
+
+  public void setProviders(Map<String, ProviderConfig> providers) {
+    this.providers = providers;
+  }
+
+  public Map<String, ConsumerConfig> getConsumers() {
+    return this.consumers;
+  }
+
+  public void setConsumers(Map<String, ConsumerConfig> consumers) {
+    this.consumers = consumers;
+  }
+
   @Override
   public String toString() {
-    return "DubboProperties [appname=" + this.appname + ", server=" + this.server + ", registry="
-        + this.registry + ", monitor=" + this.monitor + ", protocol=" + this.protocol + ", port="
-        + this.port + ", threads=" + this.threads + ", version=" + this.version + ", group="
-        + this.group + ", protocols=" + this.protocols + ", provider=" + this.provider
-        + ", consumer=" + this.consumer + "]";
+    return "DubboProperties [server=" + this.server + ", application=" + this.application
+        + ", module=" + this.module + ", registry=" + this.registry + ", protocol=" + this.protocol
+        + ", monitor=" + this.monitor + ", provider=" + this.provider + ", consumer="
+        + this.consumer + ", applications=" + this.applications + ", modules=" + this.modules
+        + ", registries=" + this.registries + ", protocols=" + this.protocols + ", monitors="
+        + this.monitors + ", providers=" + this.providers + ", consumers=" + this.consumers + "]";
   }
 }

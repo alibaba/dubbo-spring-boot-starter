@@ -2,49 +2,29 @@ package com.alibaba.dubbo.spring.boot;
 
 import java.util.concurrent.CountDownLatch;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 
-import com.alibaba.dubbo.config.ApplicationConfig;
-import com.alibaba.dubbo.config.MonitorConfig;
-import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.spring.boot.health.DubboHealthIndicator;
 import com.alibaba.dubbo.spring.boot.server.DubboServer;
 
 /**
- * Dubbo common configuration
+ * Dubbo configuration
  *
  * @author xionghui
- * @version 1.0.0
+ * @version 2.0.0
  * @since 1.0.0
  */
 @Configuration
 @EnableConfigurationProperties(DubboProperties.class)
 public class DubboAutoConfiguration {
-  @Autowired
-  private DubboProperties properties;
-
-  @Bean
-  @ConditionalOnMissingBean
-  public ApplicationConfig dubboApplicationConfig(Environment environment) {
-    String appname = this.properties.getAppname();
-    if (appname == null) {
-      appname = environment.getProperty("spring.application.name");
-    }
-    ApplicationConfig appConfig = new ApplicationConfig();
-    appConfig.setName(appname);
-    return appConfig;
-  }
 
   /**
    * Start a non-daemon thread
    *
-   * @since 1.0.2
    * @return DubboServer
    */
   @Bean
@@ -71,24 +51,6 @@ public class DubboAutoConfiguration {
     }
 
     return dubboServer;
-  }
-
-  @Bean
-  @ConditionalOnMissingBean
-  @ConditionalOnProperty(prefix = "spring.dubbo", name = "registry")
-  public RegistryConfig dubboRegistryConfig() {
-    RegistryConfig registryConfig = new RegistryConfig();
-    registryConfig.setAddress(this.properties.getRegistry());
-    return registryConfig;
-  }
-
-  @Bean
-  @ConditionalOnMissingBean
-  @ConditionalOnProperty(prefix = "spring.dubbo", name = "monitor")
-  public MonitorConfig dubboMonitorConfig() {
-    MonitorConfig monitorConfig = new MonitorConfig();
-    monitorConfig.setAddress(this.properties.getMonitor());
-    return monitorConfig;
   }
 
   @Bean

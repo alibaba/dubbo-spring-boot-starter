@@ -6,7 +6,7 @@ import org.springframework.boot.actuate.health.Status;
 
 import com.alibaba.dubbo.rpc.service.EchoService;
 import com.alibaba.dubbo.spring.boot.DubboConsumerAutoConfiguration;
-import com.alibaba.dubbo.spring.boot.domain.ClassIdBean;
+import com.alibaba.dubbo.spring.boot.bean.ClassIdBean;
 import com.alibaba.dubbo.spring.boot.listener.ConsumerSubscribeListener;
 
 /**

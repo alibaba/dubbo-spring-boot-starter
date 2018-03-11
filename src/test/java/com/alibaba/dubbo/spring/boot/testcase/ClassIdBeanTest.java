@@ -2,7 +2,7 @@ package com.alibaba.dubbo.spring.boot.testcase;
 
 import org.junit.Test;
 
-import com.alibaba.dubbo.spring.boot.domain.ClassIdBean;
+import com.alibaba.dubbo.spring.boot.bean.ClassIdBean;
 
 import junit.framework.TestCase;
 

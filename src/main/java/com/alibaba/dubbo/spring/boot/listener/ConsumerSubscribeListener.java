@@ -8,8 +8,8 @@ import com.alibaba.dubbo.common.utils.ConcurrentHashSet;
 import com.alibaba.dubbo.rpc.Invoker;
 import com.alibaba.dubbo.rpc.RpcException;
 import com.alibaba.dubbo.rpc.listener.InvokerListenerAdapter;
-import com.alibaba.dubbo.spring.boot.domain.ClassIdBean;
-import com.alibaba.dubbo.spring.boot.domain.DubboSpringBootStarterConstants;
+import com.alibaba.dubbo.spring.boot.bean.ClassIdBean;
+import com.alibaba.dubbo.spring.boot.bean.DubboSpringBootStarterConstants;
 
 /**
  * Dubbo client invoker listener

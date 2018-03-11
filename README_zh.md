@@ -17,29 +17,16 @@ Dubbo Spring Boot Starter。也可以关注dubbo官方的[dubbo-spring-boot-proj
     <dependency>
         <groupId>com.alibaba.spring.boot</groupId>
         <artifactId>dubbo-spring-boot-starter</artifactId>
-        <version>1.0.2</version>
+        <version>2.0.0</version>
     </dependency>
 ```
 
-* 单协议配置，在application.properties添加dubbo的相关配置信息，样例配置如下:
+* 在application.properties添加dubbo的相关配置信息，样例配置如下:
 
 ```properties
-spring.dubbo.appname=dubbo-spring-boot-starter-provider-test
-spring.dubbo.registry=multicast://224.0.0.0:1111
-spring.dubbo.protocol=dubbo
-```
-
-* 多协议配置(version>=1.0.2)，application.properties添加dubbo的相关配置信息，样例配置如下:
-
-```properties
-spring.dubbo.appname=dubbo-spring-boot-starter-provider-test
-spring.dubbo.registry=multicast://224.0.0.0:1111
-# dubbo协议
-spring.dubbo.protocols.dubbo.name=dubbo
-spring.dubbo.protocols.dubbo.port=20801
-# hessian协议
-spring.dubbo.protocols.hessian.name=hessian
-spring.dubbo.protocols.hessian.port=20802
+spring.application.name=dubbo-spring-boot-starter
+spring.dubbo.server=true
+spring.dubbo.registry=N/A
 ```
 
 注：这个配置只针对服务提供端，消费端不用指定协议，它自己会根据服务端的地址信息和@Reference注解去解析协议
@@ -75,16 +62,14 @@ public class HelloServiceImpl implements IHelloService {
     <dependency>
         <groupId>com.alibaba.spring.boot</groupId>
         <artifactId>dubbo-spring-boot-starter</artifactId>
-        <version>1.0.2</version>
+        <version>2.0.0</version>
     </dependency>
 ```
 
 * 在application.properties添加dubbo的相关配置信息，样例配置如下:
 
 ```properties
-spring.dubbo.appname=dubbo-spring-boot-starter-consumer-test
-spring.dubbo.registry=multicast://224.0.0.0:1111
-spring.dubbo.protocol=dubbo
+spring.application.name=dubbo-spring-boot-starter
 ```
 
 * 开启`@EnableDubboConfiguration`
@@ -102,7 +87,7 @@ public class DubboConsumerLauncher {
 ```java
 @Component
 public class HelloConsumer {
-  @Reference
+  @Reference(url = "dubbo://127.0.0.1:20880")
   private IHelloService iHelloService;
   
 }
@@ -110,5 +95,6 @@ public class HelloConsumer {
 
 ### 参考文档
 
-* dubbo 介绍: http://dubbo.io/
-* spring-boot 介绍: http://projects.spring.io/spring-boot/
+* dubbo: http://dubbo.io
+* spring-boot: http://projects.spring.io/spring-boot
+* dubbo-spring-boot-project: https://github.com/dubbo/dubbo-spring-boot-project

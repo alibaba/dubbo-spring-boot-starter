@@ -2,3 +2,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.alibaba.dubbo.spring.boot.DubboAutoConfiguration,\
 com.alibaba.dubbo.spring.boot.DubboProviderAutoConfiguration,\
 com.alibaba.dubbo.spring.boot.DubboConsumerAutoConfiguration
+
+org.springframework.context.ApplicationListener=\
+com.alibaba.dubbo.spring.boot.context.event.DubboBannerApplicationListener

@@ -1,4 +1,4 @@
-package com.alibaba.dubbo.spring.boot.domain;
+package com.alibaba.dubbo.spring.boot.bean;
 
 import java.io.Serializable;
 

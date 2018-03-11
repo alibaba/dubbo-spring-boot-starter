@@ -17,27 +17,15 @@ Support jdk version 1.6 or 1.6+
     <dependency>
         <groupId>com.alibaba.spring.boot</groupId>
         <artifactId>dubbo-spring-boot-starter</artifactId>
-        <version>1.0.2</version>
+        <version>2.0.0</version>
     </dependency>
 ```
-* single protocol config, add dubbo configuration in application.properties, demo:
+* add dubbo configuration in application.properties, demo:
 
 ```properties
-spring.dubbo.appname=dubbo-spring-boot-starter-provider-test
-spring.dubbo.registry=multicast://224.0.0.0:1111
-spring.dubbo.protocol=dubbo
-```
-* multi protocol config(version >= 1.0.2), add dubbo configuration in application.properties, demo:
-
-```properties
-spring.dubbo.appname=dubbo-spring-boot-starter-provider-test
-spring.dubbo.registry=multicast://224.0.0.0:1111
-# dubbo protocol
-spring.dubbo.protocols.dubbo.name=dubbo
-spring.dubbo.protocols.dubbo.port=20801
-# hessian protocol
-spring.dubbo.protocols.hessian.name=hessian
-spring.dubbo.protocols.hessian.port=20802
+spring.application.name=dubbo-spring-boot-starter
+spring.dubbo.server=true
+spring.dubbo.registry=N/A
 ```
 
 * then add `@EnableDubboConfiguration` on Spring Boot Application, indicates that dubbo is enabled.(web or non-web application can use dubbo provider)
@@ -71,16 +59,14 @@ public class HelloServiceImpl implements IHelloService {
     <dependency>
         <groupId>com.alibaba.spring.boot</groupId>
         <artifactId>dubbo-spring-boot-starter</artifactId>
-        <version>1.0.2</version>
+        <version>2.0.0</version>
     </dependency>
 ```
 
 * add dubbo configuration in application.properties, demo:
 
 ```properties
-spring.dubbo.appname=dubbo-spring-boot-starter-consumer-test
-spring.dubbo.registry=multicast://224.0.0.0:1111
-spring.dubbo.protocol=dubbo
+spring.application.name=dubbo-spring-boot-starter
 ```
 
 * then add `@EnableDubboConfiguration` on Spring Boot Application
@@ -98,7 +84,7 @@ public class DubboConsumerLauncher {
 ```java
 @Component
 public class HelloConsumer {
-  @Reference
+  @Reference(url = "dubbo://127.0.0.1:20880")
   private IHelloService iHelloService;
 
 }
@@ -106,5 +92,6 @@ public class HelloConsumer {
 
 ### Reference
 
-* dubbo: http://dubbo.io/
-* spring-boot: http://projects.spring.io/spring-boot/
+* dubbo: http://dubbo.io
+* spring-boot: http://projects.spring.io/spring-boot
+* dubbo-spring-boot-project: https://github.com/dubbo/dubbo-spring-boot-project

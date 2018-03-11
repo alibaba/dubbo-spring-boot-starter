@@ -1,4 +1,4 @@
-package com.alibaba.dubbo.spring.boot.domain;
+package com.alibaba.dubbo.spring.boot.bean;
 
 /**
  * Constants defined.
@@ -8,6 +8,8 @@ package com.alibaba.dubbo.spring.boot.domain;
  * @since 1.0.0
  */
 public class DubboSpringBootStarterConstants {
+
+  public static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
   public static final String GROUP = "group";
 

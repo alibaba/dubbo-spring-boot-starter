@@ -1,8 +1,6 @@
 package com.alibaba.dubbo.spring.boot;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -18,22 +16,19 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 
-import com.alibaba.dubbo.config.ApplicationConfig;
-import com.alibaba.dubbo.config.ConsumerConfig;
-import com.alibaba.dubbo.config.MonitorConfig;
-import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.dubbo.config.spring.ReferenceBean;
 import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
-import com.alibaba.dubbo.spring.boot.domain.ClassIdBean;
+import com.alibaba.dubbo.spring.boot.bean.ClassIdBean;
 
 /**
  * DubboConsumerAutoConfiguration
  *
  * @author xionghui
- * @version 1.0.0
+ * @version 2.0.0
  * @since 1.0.0
  */
 @Configuration
@@ -41,22 +36,14 @@ import com.alibaba.dubbo.spring.boot.domain.ClassIdBean;
 @ConditionalOnBean(annotation = EnableDubboConfiguration.class)
 @AutoConfigureAfter(DubboAutoConfiguration.class)
 @EnableConfigurationProperties(DubboProperties.class)
-public class DubboConsumerAutoConfiguration {
+public class DubboConsumerAutoConfiguration extends DubboCommonAutoConfiguration {
   private static final Map<ClassIdBean, Object> DUBBO_REFERENCES_MAP =
       new ConcurrentHashMap<ClassIdBean, Object>();
 
   @Autowired
   private ApplicationContext applicationContext;
-
   @Autowired
   private DubboProperties properties;
-
-  @Autowired
-  private ApplicationConfig applicationConfig;
-  @Autowired(required = false)
-  private RegistryConfig registryConfig;
-  @Autowired(required = false)
-  private MonitorConfig monitorConfig;
 
   public static Object getDubboReference(ClassIdBean classIdBean) {
     return DUBBO_REFERENCES_MAP.get(classIdBean);
@@ -80,8 +67,10 @@ public class DubboConsumerAutoConfiguration {
           for (Field field : objClz.getDeclaredFields()) {
             Reference reference = field.getAnnotation(Reference.class);
             if (reference != null) {
+              DubboConsumerAutoConfiguration.this
+                  .initIdConfigMap(DubboConsumerAutoConfiguration.this.properties);
               ReferenceBean<?> referenceBean =
-                  DubboConsumerAutoConfiguration.this.getConsumerBean(field.getType(), reference);
+                  DubboConsumerAutoConfiguration.this.getConsumerBean(beanName, field, reference);
               Class<?> interfaceClass = referenceBean.getInterfaceClass();
               String group = referenceBean.getGroup();
               String version = referenceBean.getVersion();
@@ -95,7 +84,8 @@ public class DubboConsumerAutoConfiguration {
                       DubboConsumerAutoConfiguration.DUBBO_REFERENCES_MAP.get(classIdBean);
                   if (dubboReference == null) {
                     referenceBean.afterPropertiesSet();
-                    // 理论上dubboReference不能为空，否则就会抛NullPointerException了
+                    // dubboReference should not be null, otherwise it will cause
+                    // NullPointerException
                     dubboReference = referenceBean.getObject();
                     DubboConsumerAutoConfiguration.DUBBO_REFERENCES_MAP.put(classIdBean,
                         dubboReference);
@@ -121,56 +111,49 @@ public class DubboConsumerAutoConfiguration {
   }
 
   /**
-   * 设置consumer相关配置信息
+   * init consumer bean
    *
    * @param interfaceClazz interfaceClazz
    * @param reference reference
    * @return ReferenceBean<T>
    * @throws BeansException BeansException
    */
-  private <T> ReferenceBean<T> getConsumerBean(Class<T> interfaceClazz, Reference reference)
+  private <T> ReferenceBean<T> getConsumerBean(String beanName, Field field, Reference reference)
       throws BeansException {
     ReferenceBean<T> referenceBean = new ReferenceBean<T>(reference);
     if ((reference.interfaceClass() == null || reference.interfaceClass() == void.class)
         && (reference.interfaceName() == null || "".equals(reference.interfaceName()))) {
-      referenceBean.setInterface(interfaceClazz);
-    }
-    String version = reference.version();
-    if (version == null || "".equals(version)) {
-      version = this.properties.getVersion();
-      if (version != null && !"".equals(version)) {
-        referenceBean.setVersion(version);
-      }
-    }
-    String group = reference.group();
-    if (group == null || "".equals(group)) {
-      group = this.properties.getGroup();
-      if (group != null && !"".equals(group)) {
-        referenceBean.setGroup(group);
-      }
+      referenceBean.setInterface(field.getType());
     }
 
-    String[] registrys = reference.registry();
-    if (registrys != null && registrys.length > 0) {
-      List<RegistryConfig> registrieList = new ArrayList<RegistryConfig>();
-      for (String registry : registrys) {
-        RegistryConfig registryConfig = new RegistryConfig();
-        registryConfig.setAddress(registry);
-        registrieList.add(registryConfig);
-      }
-      referenceBean.setRegistries(registrieList);
-    } else {
-      referenceBean.setRegistry(DubboConsumerAutoConfiguration.this.registryConfig);
-    }
-    if (this.monitorConfig != null) {
-      referenceBean.setMonitor(this.monitorConfig);
-    }
-    ConsumerConfig consumerConfig = this.properties.getConsumer();
-    if (consumerConfig != null) {
-      referenceBean.setConsumer(consumerConfig);
-    }
+    Environment environment = this.applicationContext.getEnvironment();
+    String application = reference.application();
+    referenceBean.setApplication(this.parseApplication(application, this.properties, environment,
+        beanName, field.getName(), "application", application));
+    String module = reference.module();
+    referenceBean.setModule(this.parseModule(module, this.properties, environment, beanName,
+        field.getName(), "module", module));
+    String[] registries = reference.registry();
+    referenceBean.setRegistries(this.parseRegistries(registries, this.properties, environment,
+        beanName, field.getName(), "registry"));
+    String monitor = reference.monitor();
+    referenceBean.setMonitor(this.parseMonitor(monitor, this.properties, environment, beanName,
+        field.getName(), "monitor", monitor));
+    String consumer = reference.consumer();
+    referenceBean.setConsumer(this.parseConsumer(consumer, this.properties, environment, beanName,
+        field.getName(), "consumer", consumer));
+
     referenceBean.setApplicationContext(DubboConsumerAutoConfiguration.this.applicationContext);
-    referenceBean.setApplication(DubboConsumerAutoConfiguration.this.applicationConfig);
     return referenceBean;
+  }
+
+  @Override
+  protected String buildErrorMsg(String... errors) {
+    if (errors == null || errors.length != 4) {
+      return super.buildErrorMsg(errors);
+    }
+    return new StringBuilder().append("beanName=").append(errors[0]).append(", field=")
+        .append(errors[1]).append(", ").append(errors[2]).append("=").append(errors[3])
+        .append(" not found in multi configs").toString();
   }
 }

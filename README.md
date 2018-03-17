@@ -1,4 +1,4 @@
-dubbo-spring-boot-starter
+dubbo-spring-boot-starter [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.alibaba.spring.boot/dubbo-spring-boot-starter/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.alibaba.spring.boot/dubbo-spring-boot-starter)
 ===================================
 
 [中文版文档](https://github.com/alibaba/dubbo-spring-boot-starter/blob/master/README_zh.md)

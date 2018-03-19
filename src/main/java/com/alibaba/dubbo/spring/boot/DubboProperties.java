@@ -12,6 +12,7 @@ import com.alibaba.dubbo.config.MonitorConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
 import com.alibaba.dubbo.config.ProviderConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 /**
  * Dubbo properties
@@ -31,36 +32,43 @@ public class DubboProperties {
   /**
    * {@link ApplicationConfig} property
    */
+  @NestedConfigurationProperty
   private ApplicationConfig application;
 
   /**
    * {@link ModuleConfig} property
    */
+  @NestedConfigurationProperty
   private ModuleConfig module;
 
   /**
    * {@link RegistryConfig} property
    */
+  @NestedConfigurationProperty
   private RegistryConfig registry;
 
   /**
    * {@link ProtocolConfig} property
    */
+  @NestedConfigurationProperty
   private ProtocolConfig protocol;
 
   /**
    * {@link MonitorConfig} property
    */
+  @NestedConfigurationProperty
   private MonitorConfig monitor;
 
   /**
    * {@link ProviderConfig} property
    */
+  @NestedConfigurationProperty
   private ProviderConfig provider;
 
   /**
    * {@link ConsumerConfig} property
    */
+  @NestedConfigurationProperty
   private ConsumerConfig consumer;
 
   /**

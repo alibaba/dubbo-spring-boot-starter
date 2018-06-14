@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -52,7 +53,12 @@ public class DubboProviderAutoConfiguration extends DubboCommonAutoConfiguration
     ServiceBean<Object> serviceConfig = new ServiceBean<Object>(service);
     if ((service.interfaceClass() == null || service.interfaceClass() == void.class)
         && (service.interfaceName() == null || "".equals(service.interfaceName()))) {
-      Class<?>[] interfaces = bean.getClass().getInterfaces();
+      Class<?>[] interfaces;
+      if (AopUtils.isAopProxy(bean)) {
+        interfaces = AopUtils.getTargetClass(bean).getInterfaces();
+      } else {
+        interfaces = bean.getClass().getInterfaces();
+      }
       if (interfaces.length > 0) {
         serviceConfig.setInterface(interfaces[0]);
       }
